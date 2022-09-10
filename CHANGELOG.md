@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/dkooll/terraform-azurerm-vnet/compare/v1.0.0...v1.1.0) (2022-09-10)
+
+
+### Features
+
+* update documentation ([#6](https://github.com/dkooll/terraform-azurerm-vnet/issues/6)) ([943ef6a](https://github.com/dkooll/terraform-azurerm-vnet/commit/943ef6abf194659b756f47944fcdc9e5278d399b))
+
 ## 1.0.0 (2022-09-10)
 
 
