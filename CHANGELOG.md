@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/dkooll/terraform-azurerm-vnet/compare/v1.1.0...v1.1.1) (2022-09-14)
+
+
+### Bug Fixes
+
+* replace all deprecated arguments ([#8](https://github.com/dkooll/terraform-azurerm-vnet/issues/8)) ([25d476e](https://github.com/dkooll/terraform-azurerm-vnet/commit/25d476e3b27e8c7a00880438540471fc333d8f11))
+
 ## [1.1.0](https://github.com/dkooll/terraform-azurerm-vnet/compare/v1.0.0...v1.1.0) (2022-09-10)
 
 
