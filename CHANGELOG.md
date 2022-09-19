@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/aztfmods/module-azurerm-vnet/compare/v1.1.1...v1.2.0) (2022-09-19)
+
+
+### Features
+
+* add nsg outputs ([#13](https://github.com/aztfmods/module-azurerm-vnet/issues/13)) ([f2c3b7f](https://github.com/aztfmods/module-azurerm-vnet/commit/f2c3b7f6975793e645f1f2a7ebb392a5a80c72f4))
+
 ## [1.1.1](https://github.com/dkooll/terraform-azurerm-vnet/compare/v1.1.0...v1.1.1) (2022-09-14)
 
 
