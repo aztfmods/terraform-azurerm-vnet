@@ -15,7 +15,7 @@ module "logging" {
 }
 
 module "network" {
-  source = "github.com/aztfmods/module-azurerm-vnet?ref=v1.3.0"
+  source = "../.."
   vnets = {
     vnet1 = {
       cidr          = ["10.19.0.0/16"]
