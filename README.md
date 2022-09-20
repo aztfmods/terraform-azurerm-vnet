@@ -11,13 +11,15 @@ The below features are made available:
 - Network security group on each subnet with multiple rules
 - Terratest is used to validate different integrations in [examples](examples)
 
+- [Diagnostic](examples/diagnostic-settings/main.tf) logging can be send to central logging resources
+
 The below examples shows the usage when consuming the module:
 
 ## Usage: single vnet multiple dns
 
 ```hcl
 module "vnet" {
-  source = "github.com/dkooll/terraform-azurerm-vnet"
+  source = "github.com/aztfmods/module-azurerm-vnet"
   vnets = {
     vnet1 = {
       cidr          = ["10.18.0.0/16"]
@@ -36,7 +38,7 @@ module "vnet" {
 
 ```hcl
 module "vnet" {
-  source = "github.com/dkooll/terraform-azurerm-vnet"
+  source = "github.com/aztfmods/module-azurerm-vnet"
   vnets = {
     vnet1 = {
       cidr          = ["10.18.0.0/16"]
@@ -55,7 +57,7 @@ module "vnet" {
 
 ```hcl
 module "vnet" {
-  source = "github.com/dkooll/terraform-azurerm-vnet"
+  source = "github.com/aztfmods/module-azurerm-vnet"
   vnets = {
     vnet1 = {
       cidr          = ["10.18.0.0/16"]
@@ -93,7 +95,7 @@ module "vnet" {
 
 ```hcl
 module "vnet" {
-  source = "github.com/dkooll/terraform-azurerm-vnet"
+  source = "github.com/aztfmods/module-azurerm-vnet"
   vnets = {
     vnet1 = {
       cidr          = ["10.18.0.0/16"]
@@ -118,7 +120,7 @@ module "vnet" {
 
 ```hcl
 module "vnet" {
-  source = "github.com/dkooll/terraform-azurerm-vnet"
+  source = "github.com/aztfmods/module-azurerm-vnet"
   vnets = {
     vnet1 = {
       cidr          = ["10.18.0.0/16"]
@@ -168,19 +170,18 @@ module "vnet" {
 | Name | Description | Type | Required |
 | :-- | :-- | :-- | :-- |
 | `vnets` | describes vnet related configuration | object | yes |
-| `resourcegroup` | name of the resource group | string | yes |
 
 ## Outputs
 
 | Name | Description |
 | :-- | :-- |
-| `subnets` | contains all subnets |
-| `vnets` | contains all vnets |
+| `vnets` | contains all vnet config |
+| `merged_ids` | contains all vnet, nsg resource id's specified within the object |
 
 ## Authors
 
-Module is maintained by [Dennis Kool](https://github.com/dkooll) with help from [these awesome contributors](https://github.com/dkooll/terraform-azurerm-vnet/graphs/contributors).
+Module is maintained by [Dennis Kool](https://github.com/dkooll) with help from [these awesome contributors](https://github.com/aztfmods/module-azurerm-vnet/graphs/contributors).
 
 ## License
 
-MIT Licensed. See [LICENSE](https://github.com/dkooll/terraform-azurerm-vnet/tree/master/LICENSE) for full details.
+MIT Licensed. See [LICENSE](https://github.com/aztfmods/module-azurerm-vnet/blob/main/LICENSE) for full details.
