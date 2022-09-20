@@ -15,7 +15,7 @@ module "logging" {
 }
 
 module "network" {
-  source = "git@github.com:aztfmods/module-azurerm-vnet.git?ref=v1.3.0"
+  source = "github.com/aztfmods/module-azurerm-vnet?ref=v1.3.0"
   vnets = {
     vnet1 = {
       cidr          = ["10.19.0.0/16"]
@@ -29,7 +29,7 @@ module "network" {
 }
 
 module "diagnostic_settings" {
-  source = "git@github.com:aztfmods/module-azurerm-diags.git?ref=v.1.0.1"
+  source = "github.com/aztfmods/module-azurerm-diags"
   count  = length(module.network.merged_ids)
 
   resource_id           = element(module.network.merged_ids, count.index)
