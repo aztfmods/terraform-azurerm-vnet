@@ -10,10 +10,7 @@ The below features are made available:
 - Multiple subnet on each virtual network
 - Network security group on each subnet with multiple rules
 - Terratest is used to validate different integrations in [examples](examples)
-
-The below example integrations can be used:
-
-- [Diagnostics](examples/diagnostic-settings/main.tf)
+- The [diagnostics](examples/diagnostic-settings/main.tf) integration enables us to send logs to logging resources.
 
 The below examples shows the usage when consuming the module:
 
