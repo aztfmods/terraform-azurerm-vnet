@@ -13,7 +13,7 @@ The below features are made available:
 
 The below example integrations can be used:
 
-- [Diagnostic](examples/diagnostic-settings/main.tf) logging can be send to central logging resources
+- [Diagnostics](examples/diagnostic-settings/main.tf)
 
 The below examples shows the usage when consuming the module:
 
