@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.0](https://github.com/aztfmods/module-azurerm-vnet/compare/v1.3.0...v1.4.0) (2022-09-21)
+
+
+### Features
+
+* add diagnostics integration ([#17](https://github.com/aztfmods/module-azurerm-vnet/issues/17)) ([bfe915c](https://github.com/aztfmods/module-azurerm-vnet/commit/bfe915ca4efbb2ef264e66407b8c6e9552e875ba))
+* minor documentation changes ([#19](https://github.com/aztfmods/module-azurerm-vnet/issues/19)) ([8b93209](https://github.com/aztfmods/module-azurerm-vnet/commit/8b93209d935f64dee4fcea77f45e1d3a4219308b))
+
 ## [1.3.0](https://github.com/aztfmods/module-azurerm-vnet/compare/v1.2.0...v1.3.0) (2022-09-20)
 
 
