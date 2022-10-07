@@ -13,7 +13,7 @@ locals {
 module "global" {
   source = "github.com/aztfmods/module-azurerm-global"
   rgs = {
-    netw = {
+    network = {
       name     = "rg-${local.naming.company}-netw-${local.naming.env}-${local.naming.region}"
       location = "westeurope"
     }
@@ -31,8 +31,8 @@ module "vnet" {
 
   vnets = {
     demo = {
-      location      = module.global.groups.acr.location
-      resourcegroup = module.global.groups.acr.name
+      location      = module.global.groups.network.location
+      resourcegroup = module.global.groups.network.name
       cidr          = ["10.18.0.0/16"]
       dns           = ["8.8.8.8"]
       subnets = {
