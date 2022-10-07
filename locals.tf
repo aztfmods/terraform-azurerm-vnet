@@ -6,10 +6,10 @@ locals {
         network_key                = network_key
         subnet_key                 = subnet_key
         address_prefixes           = subnet.cidr
-        rg_name                    = azurerm_resource_group.rg[network_key].name
-        subnet_name                = "sn-${var.env}-${network_key}-${subnet_key}"
-        nsg_name                   = "nsg-${var.env}-${network_key}-${subnet_key}"
-        location                   = network.location
+        rg_name                    = data.azurerm_resource_group.rg[network_key].name
+        subnet_name                = "sn-${var.naming.company}-${subnet_key}-${var.naming.env}-${var.naming.region}"
+        nsg_name                   = "nsg-${var.naming.company}-${subnet_key}-${var.naming.env}-${var.naming.region}"
+        location                   = data.azurerm_resource_group.rg[network_key].location
         endpoints                  = try(subnet.endpoints, [])
         rules                      = try(subnet.rules, {})
         delegations                = try(subnet.delegations, [])
