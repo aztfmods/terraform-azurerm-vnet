@@ -36,7 +36,7 @@ module "vnet" {
       cidr          = ["10.18.0.0/16"]
       dns           = ["8.8.8.8"]
       subnets = {
-        sn1 = { cidr = ["10.18.1.0/24"], enforce_priv_link_policies = true}
+        sn1 = { cidr = ["10.18.1.0/24"], enforce_priv_link_policies = true }
       }
     }
   }
