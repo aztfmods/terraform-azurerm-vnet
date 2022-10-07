@@ -1,18 +1,12 @@
-provider "azurerm" {
-  features {}
-}
-
 #----------------------------------------------------------------------------------------
 # Resourcegroups
 #----------------------------------------------------------------------------------------
 
-resource "azurerm_resource_group" "rg" {
+data "azurerm_resource_group" "rg" {
   for_each = var.vnets
 
-  name     = each.value.resourcegroup
-  location = each.value.location
+  name = each.value.resourcegroup
 }
-
 #----------------------------------------------------------------------------------------
 # Vnets
 #----------------------------------------------------------------------------------------
@@ -20,9 +14,9 @@ resource "azurerm_resource_group" "rg" {
 resource "azurerm_virtual_network" "vnets" {
   for_each = var.vnets
 
-  name                = "vnet-${var.env}-${each.key}"
-  resource_group_name = azurerm_resource_group.rg[each.key].name
-  location            = each.value.location
+  name                = "vnet-${var.naming.company}-${each.key}-${var.naming.env}-${var.naming.region}"
+  resource_group_name = data.azurerm_resource_group.rg[each.key].name
+  location            = data.azurerm_resource_group.rg[each.key].location
   address_space       = each.value.cidr
 }
 
