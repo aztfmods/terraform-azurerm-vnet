@@ -7,8 +7,9 @@ data "azurerm_resource_group" "rg" {
 
   name = each.value.resourcegroup
 }
+
 #----------------------------------------------------------------------------------------
-# Vnets
+# vnets
 #----------------------------------------------------------------------------------------
 
 resource "azurerm_virtual_network" "vnets" {
@@ -18,10 +19,19 @@ resource "azurerm_virtual_network" "vnets" {
   resource_group_name = data.azurerm_resource_group.rg[each.key].name
   location            = data.azurerm_resource_group.rg[each.key].location
   address_space       = each.value.cidr
+
+  dynamic "ddos_protection_plan" {
+    for_each = try(each.value.ddos_plan.enable, false) == true ? range(1) : range(0)
+    iterator = v
+    content {
+      id     = each.value.ddos_plan.id
+      enable = true
+    }
+  }
 }
 
 #----------------------------------------------------------------------------------------
-# Dns
+# dns
 #----------------------------------------------------------------------------------------
 
 resource "azurerm_virtual_network_dns_servers" "dns" {
@@ -32,7 +42,7 @@ resource "azurerm_virtual_network_dns_servers" "dns" {
 }
 
 #----------------------------------------------------------------------------------------
-# Subnets
+# subnets
 #----------------------------------------------------------------------------------------
 
 resource "azurerm_subnet" "subnets" {
@@ -63,7 +73,7 @@ resource "azurerm_subnet" "subnets" {
 }
 
 #----------------------------------------------------------------------------------------
-# Nsg's
+# nsg's
 #----------------------------------------------------------------------------------------
 
 resource "azurerm_network_security_group" "nsg" {
@@ -98,7 +108,7 @@ resource "azurerm_network_security_group" "nsg" {
 }
 
 #----------------------------------------------------------------------------------------
-# Nsg subnet associations
+# nsg subnet associations
 #----------------------------------------------------------------------------------------
 
 resource "azurerm_subnet_network_security_group_association" "nsg_as" {

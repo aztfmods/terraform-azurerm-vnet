@@ -20,6 +20,24 @@ module "global" {
   }
 }
 
+module "security" {
+  source = "github.com/aztfmods/module-azurerm-security"
+
+  naming = {
+    company = local.naming.company
+    env     = local.naming.env
+    region  = local.naming.region
+  }
+
+  ddos_plan = {
+    create        = true
+    location      = module.global.groups.network.location
+    resourcegroup = module.global.groups.network.name
+  }
+
+  depends_on = [module.global]
+}
+
 module "vnet" {
   source = "../../"
 
@@ -38,6 +56,8 @@ module "vnet" {
       subnets = {
         sn1 = { cidr = ["10.18.1.0/24"], enforce_priv_link_policies = true }
       }
+
+      ddos_plan = { enable = true, id = module.security.ddos_plan_id }
     }
   }
   depends_on = [module.global]
