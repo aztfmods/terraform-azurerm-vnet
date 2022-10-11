@@ -1,4 +1,4 @@
-![example workflow](https://github.com/dkooll/terraform-azurerm-vnet/actions/workflows/validate.yml/badge.svg)
+![example workflow](https://github.com/aztfmods/module-azurerm-vnet/actions/workflows/validate.yml/badge.svg)
 
 # Virtual Network
 
@@ -11,7 +11,7 @@ The below features are made available:
 - Network security group on each subnet with multiple rules
 - Terratest is used to validate different integrations in [examples](examples)
 - [diagnostic](examples/diagnostic-settings/main.tf) logs integration
-- DDOS protection plan integration
+- [ddos protection](examples/ddos-protection/) plan integration
 
 The below examples shows the usage when consuming the module:
 
@@ -20,17 +20,25 @@ The below examples shows the usage when consuming the module:
 ```hcl
 module "vnet" {
   source = "github.com/aztfmods/module-azurerm-vnet"
+
+  naming = {
+    company = local.naming.company
+    env     = local.naming.env
+    region  = local.naming.region
+  }
+
   vnets = {
-    vnet1 = {
+    demo = {
+      location      = module.global.groups.network.location
+      resourcegroup = module.global.groups.network.name
       cidr          = ["10.18.0.0/16"]
       dns           = ["8.8.8.8","7.7.7.7"]
-      location      = "westeurope"
-      resourcegroup = "rg-network-weu"
       subnets = {
         sn1 = { cidr = ["10.18.1.0/24"] }
       }
     }
   }
+  depends_on = [module.global]
 }
 ```
 
@@ -39,17 +47,25 @@ module "vnet" {
 ```hcl
 module "vnet" {
   source = "github.com/aztfmods/module-azurerm-vnet"
+
+  naming = {
+    company = local.naming.company
+    env     = local.naming.env
+    region  = local.naming.region
+  }
+
   vnets = {
-    vnet1 = {
+    demo = {
+      location      = module.global.groups.network.location
+      resourcegroup = module.global.groups.network.name
       cidr          = ["10.18.0.0/16"]
-      location      = "westeurope"
-      resourcegroup = "rg-network-weu"
       subnets = {
         sn1 = { cidr = ["10.18.1.0/24"] }
         sn2 = { cidr = ["10.18.2.0/24"] }
       }
     }
   }
+  depends_on = [module.global]
 }
 ```
 
@@ -58,11 +74,18 @@ module "vnet" {
 ```hcl
 module "vnet" {
   source = "github.com/aztfmods/module-azurerm-vnet"
+
+  naming = {
+    company = local.naming.company
+    env     = local.naming.env
+    region  = local.naming.region
+  }
+
   vnets = {
     vnet1 = {
+      location      = module.global.groups.network.location
+      resourcegroup = module.global.groups.network.name
       cidr          = ["10.18.0.0/16"]
-      location      = "westeurope"
-      resourcegroup = "rg-network-weu"
       subnets = {
         sn1 = {
           cidr = ["10.18.1.0/24"]
@@ -76,8 +99,8 @@ module "vnet" {
 
     vnet2 = {
       cidr          = ["10.19.0.0/16"]
-      location      = "eastus2"
-      resourcegroup = "rg-network-eus2"
+      location      = module.global.groups.network.location
+      resourcegroup = module.global.groups.network.name
       subnets = {
         sn1 = {
           cidr = ["10.19.1.0/24"]
@@ -88,6 +111,7 @@ module "vnet" {
       }
     }
   }
+  depends_on = [module.global]
 }
 ```
 
@@ -96,11 +120,18 @@ module "vnet" {
 ```hcl
 module "vnet" {
   source = "github.com/aztfmods/module-azurerm-vnet"
+
+  naming = {
+    company = local.naming.company
+    env     = local.naming.env
+    region  = local.naming.region
+  }
+
   vnets = {
-    vnet1 = {
+    demo = {
+      location      = module.global.groups.network.location
+      resourcegroup = module.global.groups.network.name
       cidr          = ["10.18.0.0/16"]
-      location      = "westeurope"
-      resourcegroup = "rg-network-weu"
       subnets = {
         sn1 = {
           cidr = ["10.18.1.0/24"]
@@ -113,6 +144,7 @@ module "vnet" {
       }
     }
   }
+  depends_on = [module.global]
 }
 ```
 
@@ -121,11 +153,18 @@ module "vnet" {
 ```hcl
 module "vnet" {
   source = "github.com/aztfmods/module-azurerm-vnet"
+
+  naming = {
+    company = local.naming.company
+    env     = local.naming.env
+    region  = local.naming.region
+  }
+
   vnets = {
     vnet1 = {
       cidr          = ["10.18.0.0/16"]
-      location      = "westeurope"
-      resourcegroup = "rg-network-weu"
+      location      = module.global.groups.network.location
+      resourcegroup = module.global.groups.network.name
       subnets = {
         sn1 = {
           cidr = ["10.18.1.0/24"]
@@ -139,8 +178,8 @@ module "vnet" {
 
     vnet2 = {
       cidr          = ["10.19.0.0/16"]
-      location      = "eastus2"
-      resourcegroup = "rg-network-eus2"
+      location      = module.global.groups.network.location
+      resourcegroup = module.global.groups.network.name
       subnets = {
         sn1 = {
           cidr = ["10.19.1.0/24"]
@@ -151,6 +190,7 @@ module "vnet" {
       }
     }
   }
+  depends_on = [module.global]
 }
 ```
 
