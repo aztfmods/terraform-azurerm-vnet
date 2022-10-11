@@ -6,12 +6,12 @@ Terraform module which creates virtual network resources on Azure.
 
 The below features are made available:
 
-- Multiple virtual networks
-- Multiple subnet on each virtual network
-- Network security group on each subnet with multiple rules
-- Terratest is used to validate different integrations in [examples](examples)
+- multiple virtual networks
+- multiple subnet on each virtual network
+- network security group on each subnet with multiple rules
+- terratest is used to validate different integrations in [examples](examples)
 - [diagnostic](examples/diagnostic-settings/main.tf) logs integration
-- [ddos protection](examples/ddos-protection/) plan integration
+- [ddos protection plan](examples/ddos-protection/) integration
 
 The below examples shows the usage when consuming the module:
 
