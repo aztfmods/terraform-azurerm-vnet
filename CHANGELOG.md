@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.5.0](https://github.com/aztfmods/module-azurerm-vnet/compare/v1.4.0...v1.5.0) (2022-10-11)
+
+
+### Features
+
+* add consistent naming ([#20](https://github.com/aztfmods/module-azurerm-vnet/issues/20)) ([bbcc3ab](https://github.com/aztfmods/module-azurerm-vnet/commit/bbcc3abcbc3d9c7c24512335ce2db4e00e83c513))
+* add ddos protection integration ([#23](https://github.com/aztfmods/module-azurerm-vnet/issues/23)) ([181843a](https://github.com/aztfmods/module-azurerm-vnet/commit/181843abd565786d96e78e11fb4830317cbe7e64))
+* add reusable workflows ([#22](https://github.com/aztfmods/module-azurerm-vnet/issues/22)) ([8ddf732](https://github.com/aztfmods/module-azurerm-vnet/commit/8ddf732d4a02ffc2f32296fca6f82960624bfffb))
+* update documentation ([#24](https://github.com/aztfmods/module-azurerm-vnet/issues/24)) ([54646f9](https://github.com/aztfmods/module-azurerm-vnet/commit/54646f99b7aa8e742c00de591b094b89a3adb6cd))
+
 ## [1.4.0](https://github.com/aztfmods/module-azurerm-vnet/compare/v1.3.0...v1.4.0) (2022-09-21)
 
 
