@@ -21,10 +21,10 @@ resource "azurerm_virtual_network" "vnets" {
   address_space       = each.value.cidr
 
   dynamic "ddos_protection_plan" {
-    for_each = try(each.value.ddos_plan.enable, false) == true ? range(1):range(0)
+    for_each = try(each.value.ddos_plan.enable, false) == true ? range(1) : range(0)
     iterator = v
     content {
-      id = each.value.ddos_plan.id
+      id     = each.value.ddos_plan.id
       enable = true
     }
   }
