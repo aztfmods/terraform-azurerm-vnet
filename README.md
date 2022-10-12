@@ -9,7 +9,8 @@ The below features are made available:
 - multiple virtual networks
 - multiple subnet on each virtual network
 - network security group on each subnet with multiple rules
-- terratest is used to validate different integrations in [examples](examples)
+- optional service endpoints and delegations on each subnet
+- [terratest](https://github.com/gruntwork-io/terratest) is used to validate different integrations in [examples](examples)
 - [diagnostic](examples/diagnostic-settings/main.tf) logs integration
 - [ddos protection plan](examples/ddos-protection/) integration
 
