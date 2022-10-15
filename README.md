@@ -217,13 +217,14 @@ module "vnet" {
 | Name | Description | Type | Required |
 | :-- | :-- | :-- | :-- |
 | `vnets` | describes vnet related configuration | object | yes |
+| `naming` | contains naming convention | string | yes |
 
 ## Outputs
 
 | Name | Description |
 | :-- | :-- |
-| `vnets` | contains all vnet config |
-| `merged_ids` | contains all vnet, nsg resource id's specified within the object |
+| `vnets` | contains all vnets |
+| `merged_ids` | contains all resource id's specified within the module |
 
 ## Authors
 
