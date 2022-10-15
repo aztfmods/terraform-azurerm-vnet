@@ -7,9 +7,9 @@ Terraform module which creates virtual network resources on Azure.
 The below features are made available:
 
 - multiple virtual networks
-- multiple subnets on each virtual network
-- network security group on each subnet with multiple rules
-- optional service endpoints and delegations on each subnet
+- [subnet](#usage-single-vnet-multiple-subnets) support on each virtual network
+- [network security group](#usage-multiple-vnets-single-subnet-with-multiple-nsg-rules) on each subnet with multiple rules
+- [service endpoints](#usage-multiple-vnets-single-subnet-with-endpoints), [delegations](#usage-single-vnet-single-subnet-with-delegations) support on each subnet
 - [terratest](https://terratest.gruntwork.io) is used to validate different integrations
 - [diagnostic](examples/diagnostic-settings/main.tf) logs integration
 - [ddos protection plan](examples/ddos-protection/) integration
