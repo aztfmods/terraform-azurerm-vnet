@@ -9,7 +9,7 @@ The below features are made available:
 - multiple virtual networks
 - [subnet](#usage-single-vnet-multiple-subnets) support on each virtual network
 - [network security group](#usage-multiple-vnets-single-subnet-with-multiple-nsg-rules) support on each subnet with multiple rules
-- [service endpoints](#usage-multiple-vnets-single-subnet-with-endpoints), [delegations](#usage-single-vnet-single-subnet-with-delegations) support on each subnet
+- [service endpoint](#usage-multiple-vnets-single-subnet-with-endpoints), [delegation](#usage-single-vnet-single-subnet-with-delegations) support on each subnet
 - [terratest](https://terratest.gruntwork.io) is used to validate different integrations
 - [diagnostic](examples/diagnostic-settings/main.tf) logs integration
 - [ddos protection plan](examples/ddos-protection/main.tf) integration
@@ -205,6 +205,12 @@ module "vnet" {
 | [azurerm_subnet](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet) | resource |
 | [azurerm_network_security_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_group) | resource |
 | [azurerm_subnet_network_security_group_association](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet_network_security_group_association) | resource |
+
+## Data Sources
+
+| Name | Type |
+| :-- | :-- |
+| [azurerm_resource_group](https://registry.terraform.io/providers/hashicorp/azurerm/1.39.0/docs/data-sources/resource_group) | datasource |
 
 ## Inputs
 
