@@ -12,7 +12,7 @@ The below features are made available:
 - [service endpoints](#usage-multiple-vnets-single-subnet-with-endpoints), [delegations](#usage-single-vnet-single-subnet-with-delegations) support on each subnet
 - [terratest](https://terratest.gruntwork.io) is used to validate different integrations
 - [diagnostic](examples/diagnostic-settings/main.tf) logs integration
-- [ddos protection plan](examples/ddos-protection/) integration
+- [ddos protection plan](examples/ddos-protection/main.tf) integration
 
 The below examples shows the usage when consuming the module:
 
