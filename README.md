@@ -8,15 +8,15 @@ The below features are made available:
 
 - multiple virtual networks
 - [subnet](#usage-single-vnet-multiple-subnets) support on each virtual network
-- [network security group](#usage-multiple-vnets-single-subnet-with-multiple-nsg-rules) support on each subnet with multiple rules
-- [service endpoint](#usage-multiple-vnets-single-subnet-with-endpoints), [delegation](#usage-single-vnet-single-subnet-with-delegations) support on each subnet
+- [network security group](#usage-multiple-nsg-rules) support on each subnet with multiple rules
+- [service endpoint](#usage-endpoints), [delegation](#usage-delegations) support on each subnet
 - [terratest](https://terratest.gruntwork.io) is used to validate different integrations
 - [diagnostic](examples/diagnostic-settings/main.tf) logs integration
 - [ddos protection plan](examples/ddos-protection/main.tf) integration
 
 The below examples shows the usage when consuming the module:
 
-## Usage: single vnet multiple dns
+## Usage: multiple dns
 
 ```hcl
 module "vnet" {
@@ -43,7 +43,7 @@ module "vnet" {
 }
 ```
 
-## Usage: single vnet multiple subnets
+## Usage: multiple subnets
 
 ```hcl
 module "vnet" {
@@ -70,7 +70,7 @@ module "vnet" {
 }
 ```
 
-## Usage: multiple vnets single subnet with endpoints
+## Usage: endpoints
 
 ```hcl
 module "vnet" {
@@ -97,26 +97,12 @@ module "vnet" {
         }
       }
     }
-
-    vnet2 = {
-      cidr          = ["10.19.0.0/16"]
-      location      = module.global.groups.network.location
-      resourcegroup = module.global.groups.network.name
-      subnets = {
-        sn1 = {
-          cidr = ["10.19.1.0/24"]
-          endpoints = [
-            "Microsoft.Web"
-          ]
-        }
-      }
-    }
   }
   depends_on = [module.global]
 }
 ```
 
-## Usage: single vnet single subnet with delegations
+## Usage: delegations
 
 ```hcl
 module "vnet" {
@@ -149,7 +135,7 @@ module "vnet" {
 }
 ```
 
-## Usage: multiple vnets single subnet with multiple nsg rules
+## Usage: multiple nsg rules
 
 ```hcl
 module "vnet" {
@@ -172,20 +158,6 @@ module "vnet" {
           rules = [
             {name = "myhttps",priority = 100,direction = "Inbound",access = "Allow",protocol = "Tcp",source_port_range = "*",destination_port_range = "443",source_address_prefix = "10.151.1.0/24",destination_address_prefix = "*"},
             {name = "mysql",priority = 200,direction = "Inbound",access = "Allow",protocol = "Tcp",source_port_range = "*",destination_port_range = "3306",source_address_prefix = "10.0.0.0/24",destination_address_prefix = "*"}
-          ]
-        }
-      }
-    }
-
-    vnet2 = {
-      cidr          = ["10.19.0.0/16"]
-      location      = module.global.groups.network.location
-      resourcegroup = module.global.groups.network.name
-      subnets = {
-        sn1 = {
-          cidr = ["10.19.1.0/24"]
-          rules = [
-            {name = "myssh",priority = 100,direction = "Inbound",access = "Allow",protocol = "Tcp",source_port_range = "*",destination_port_range = "22",source_address_prefix = "10.151.0.0/24",destination_address_prefix = "*"}
           ]
         }
       }
