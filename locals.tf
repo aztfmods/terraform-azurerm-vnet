@@ -16,6 +16,8 @@ locals {
         virtual_network_name       = azurerm_virtual_network.vnets[network_key].name
         enforce_priv_link_service  = try(subnet.enforce_priv_link_service, false)
         enforce_priv_link_endpoint = try(subnet.enforce_priv_link_endpoint, false)
+        subnet_id                  = azurerm_subnet.subnets[subnet_key].id
+        network_security_group_id  = azurerm_network_security_group.nsg[subnet_key].id
       }
     ]
   ])
