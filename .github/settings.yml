@@ -1,0 +1,12 @@
+# These settings are synced to GitHub by https://probot.github.io/apps/settings/
+repository:
+  name: module-azurerm-vnet
+  description: Terraform module which creates VNET resources on Azure.
+  homepage: https://github.com/aztfmods/module-azurerm-vnet
+  topics: module, vnet
+  private: true
+  has_issues: true
+  has_projects: true
+  has_wiki: true
+  has_downloads: true
+  default_branch: main
