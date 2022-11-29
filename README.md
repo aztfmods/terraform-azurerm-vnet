@@ -196,6 +196,11 @@ module "vnet" {
 | `vnets` | contains all vnets |
 | `merged_ids` | contains all resource id's specified within the module |
 
+## Reference
+
+- [Virtual Network Documentation - Microsoft docs](https://learn.microsoft.com/en-us/azure/virtual-network/)
+- [Virtual Network Rest Api - Microsoft docs](https://learn.microsoft.com/en-us/rest/api/virtual-network/)
+
 ## Authors
 
 Module is maintained by [Dennis Kool](https://github.com/dkooll) with help from [these awesome contributors](https://github.com/aztfmods/module-azurerm-vnet/graphs/contributors).
