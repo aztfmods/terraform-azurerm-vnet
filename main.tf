@@ -62,13 +62,17 @@ resource "azurerm_subnet" "subnets" {
     for_each = each.value.delegations
 
     content {
-      name = "delegation"
+      name = delegation.key
 
       service_delegation {
-        name    = delegation.value.name
-        actions = delegation.value.actions
+        name = delegation.value.name
       }
     }
+  }
+
+  timeouts {
+    delete = "15m"
+    create = "15m"
   }
 }
 
@@ -105,6 +109,12 @@ resource "azurerm_network_security_group" "nsg" {
       destination_address_prefixes = lookup(security_rule.value, "destination_address_prefixes", null)
     }
   }
+
+  #Due to StatusCode=400, Code="InUseNetworkSecurityGroupCannotBeDeleted"
+  timeouts {
+    delete = "15m"
+    create = "15m"
+  }
 }
 
 #----------------------------------------------------------------------------------------
@@ -118,4 +128,9 @@ resource "azurerm_subnet_network_security_group_association" "nsg_as" {
 
   subnet_id                 = azurerm_subnet.subnets[each.key].id
   network_security_group_id = azurerm_network_security_group.nsg[each.key].id
+
+  timeouts {
+    delete = "15m"
+    create = "15m"
+  }
 }

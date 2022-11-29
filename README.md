@@ -8,7 +8,7 @@ The below features are made available:
 
 - multiple virtual networks
 - [subnet](#usage-single-vnet-multiple-subnets) support on each virtual network
-- [network security group](#usage-multiple-nsg-rules) support on each subnet with multiple rules
+- [network security group](#usage-nsg-rules) support on each subnet with multiple rules
 - [service endpoint](#usage-endpoints), [delegation](#usage-delegations) support on each subnet
 - [terratest](https://terratest.gruntwork.io) is used to validate different integrations
 - [diagnostic](examples/diagnostic-settings/main.tf) logs integration
@@ -122,11 +122,9 @@ module "vnet" {
       subnets = {
         sn1 = {
           cidr = ["10.18.1.0/24"]
-          delegations = [
-            "Microsoft.ContainerInstance/containerGroups",
-            "Microsoft.Kusto/clusters",
-            "Microsoft.Sql/managedInstances"
-          ]
+          delegations = {
+            databricks = { name = "Microsoft.Databricks/workspaces" }
+          }
         }
       }
     }
@@ -135,7 +133,7 @@ module "vnet" {
 }
 ```
 
-## Usage: multiple nsg rules
+## Usage: nsg rules
 
 ```hcl
 module "vnet" {
