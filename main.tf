@@ -105,7 +105,7 @@ resource "azurerm_network_security_group" "nsg" {
     }
   }
 
-#Due to StatusCode=400, Code="InUseNetworkSecurityGroupCannotBeDeleted"
+  #Due to StatusCode=400, Code="InUseNetworkSecurityGroupCannotBeDeleted"
   timeouts {
     delete = "15m"
     create = "15m"
