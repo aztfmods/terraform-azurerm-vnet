@@ -70,7 +70,7 @@ resource "azurerm_subnet" "subnets" {
     }
   }
 
-  timeouts = {
+  timeouts {
     delete = "15m"
     create = "15m"
   }
@@ -111,7 +111,7 @@ resource "azurerm_network_security_group" "nsg" {
   }
 
   #Due to StatusCode=400, Code="InUseNetworkSecurityGroupCannotBeDeleted"
-  timeouts = {
+  timeouts {
     delete = "15m"
     create = "15m"
   }
@@ -129,7 +129,7 @@ resource "azurerm_subnet_network_security_group_association" "nsg_as" {
   subnet_id                 = azurerm_subnet.subnets[each.key].id
   network_security_group_id = azurerm_network_security_group.nsg[each.key].id
 
-  timeouts = {
+  timeouts {
     delete = "15m"
     create = "15m"
   }
