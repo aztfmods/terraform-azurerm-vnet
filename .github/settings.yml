@@ -32,3 +32,11 @@ labels:
   - name: 'blocked'
     color: '#d93f0b'
     description: 'blocked'
+
+branches:
+  - name: main
+    protection:
+      required_pull_request_reviews:
+        required_approving_review_count: 1
+        dismiss_stale_reviews: true
+        require_code_owner_reviews: true
