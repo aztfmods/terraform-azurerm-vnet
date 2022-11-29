@@ -20,10 +20,3 @@ locals {
     ]
   ])
 }
-
-locals {
-  timeouts = {
-    delete = "15m"
-    create = "15m"
-  }
-}
