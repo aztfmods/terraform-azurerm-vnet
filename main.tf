@@ -28,11 +28,6 @@ resource "azurerm_virtual_network" "vnets" {
       enable = true
     }
   }
-
-  timeouts {
-    delete = "15m"
-    create = "15m"
-  }
 }
 
 #----------------------------------------------------------------------------------------
