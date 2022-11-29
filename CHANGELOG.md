@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.6.0](https://github.com/aztfmods/module-azurerm-vnet/compare/v1.5.0...v1.6.0) (2022-11-29)
+
+
+### Features
+
+* add initial config ([#26](https://github.com/aztfmods/module-azurerm-vnet/issues/26)) ([63e3c02](https://github.com/aztfmods/module-azurerm-vnet/commit/63e3c0274ba23b278ef544a96a35bee03c4fd842))
+
+
+### Bug Fixes
+
+* fix delegation section ([#32](https://github.com/aztfmods/module-azurerm-vnet/issues/32)) ([b22fb32](https://github.com/aztfmods/module-azurerm-vnet/commit/b22fb32a03234dcbe25fb5bbf60c0fdf3cb5efc9))
+
 ## [1.5.0](https://github.com/aztfmods/module-azurerm-vnet/compare/v1.4.0...v1.5.0) (2022-10-11)
 
 
