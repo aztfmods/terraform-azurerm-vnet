@@ -69,6 +69,8 @@ resource "azurerm_subnet" "subnets" {
       }
     }
   }
+
+  timeouts = local.timeouts
 }
 
 #----------------------------------------------------------------------------------------
@@ -106,10 +108,7 @@ resource "azurerm_network_security_group" "nsg" {
   }
 
   #Due to StatusCode=400, Code="InUseNetworkSecurityGroupCannotBeDeleted"
-  timeouts {
-    delete = "15m"
-    create = "15m"
-  }
+  timeouts = local.timeouts
 }
 
 #----------------------------------------------------------------------------------------
