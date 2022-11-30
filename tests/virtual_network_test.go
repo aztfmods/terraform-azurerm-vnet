@@ -10,10 +10,10 @@ func TestApplyNoError(t *testing.T) {
 	t.Parallel()
 
 	tests := []string{
-		//"../examples/102-delegations",
+		"../examples/102-delegations",
 		"../examples/103-nsg-rules",
 		//"..examples/service-endpoints",
-		"../examples/100-simple",
+		//"../examples/100-simple",
 		//"../examples/diagnostic-settings",
 		//"../examples/ddos-protection",
 	}
@@ -23,7 +23,7 @@ func TestApplyNoError(t *testing.T) {
 			terraformOptions := &terraform.Options{
 				TerraformDir: test,
 				NoColor:      true,
-				Parallelism:  2,
+				// Parallelism:  2,
 			}
 
 			terraform.WithDefaultRetryableErrors(t, &terraform.Options{})
