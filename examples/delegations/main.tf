@@ -52,7 +52,7 @@ module "vnet" {
         sn3 = {
           cidr = ["10.19.3.0/24"]
           delegations = {
-            databricks = { name = "Microsoft.Network/managedResolvers" }
+            managedResolvers = { name = "Microsoft.Network/managedResolvers" }
           }
         }
       }
