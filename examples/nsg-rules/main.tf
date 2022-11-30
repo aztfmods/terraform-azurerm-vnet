@@ -6,7 +6,7 @@ locals {
   naming = {
     company = "cn"
     env     = "p"
-    region  = "weu"
+    region  = "sea"
   }
 }
 
@@ -15,7 +15,7 @@ module "global" {
   rgs = {
     network = {
       name     = "rg-${local.naming.company}-netw-${local.naming.env}-${local.naming.region}"
-      location = "westeurope"
+      location = "southeastasia"
     }
   }
 }
