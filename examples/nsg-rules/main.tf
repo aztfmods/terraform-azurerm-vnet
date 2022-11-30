@@ -21,7 +21,7 @@ module "global" {
 }
 
 module "vnet" {
-  source = "github.com/aztfmods/module-azurerm-vnet"
+  source = "../../"
 
   naming = {
     company = local.naming.company
