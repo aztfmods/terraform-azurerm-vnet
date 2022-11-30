@@ -21,7 +21,7 @@ module "global" {
 }
 
 module "vnet" {
-  source = "../../"
+  source = "github.com/aztfmods/module-azurerm-vnet"
 
   naming = {
     company = local.naming.company
@@ -30,10 +30,21 @@ module "vnet" {
   }
 
   vnets = {
-    demo = {
+    vnet1 = {
       location      = module.global.groups.network.location
       resourcegroup = module.global.groups.network.name
       cidr          = ["10.18.0.0/16"]
+      subnets = {
+        sn1 = {
+          cidr = ["10.18.1.0/24"]
+          endpoints = [
+            "Microsoft.Storage",
+            "Microsoft.Sql",
+            "Microsoft.EventHub",
+            "Microsoft.KeyVault"
+          ]
+        }
+      }
     }
   }
   depends_on = [module.global]
