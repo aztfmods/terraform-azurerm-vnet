@@ -45,14 +45,14 @@ module "vnet" {
         sn2 = {
           cidr = ["10.19.2.0/24"]
           delegations = {
-            databricks  = { name = "Microsoft.Databricks/workspaces" }
+            databricks = { name = "Microsoft.Databricks/workspaces" }
           }
         }
 
         sn3 = {
           cidr = ["10.19.3.0/24"]
           delegations = {
-            databricks  = { name = "Microsoft.Network/managedResolvers" }
+            databricks = { name = "Microsoft.Network/managedResolvers" }
           }
         }
       }
