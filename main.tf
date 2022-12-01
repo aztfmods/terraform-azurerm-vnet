@@ -71,14 +71,8 @@ resource "azurerm_subnet" "subnets" {
   }
 }
 
-resource "time_sleep" "wait_50_seconds" {
+resource "time_sleep" "wait" {
   create_duration = "50s"
-  depends_on      = [azurerm_subnet.subnets]
-}
-
-resource "time_sleep" "wait_50_seconds_del" {
-  destroy_duration = "50s"
-  depends_on       = [azurerm_subnet.subnets]
 }
 
 #----------------------------------------------------------------------------------------
@@ -127,4 +121,8 @@ resource "azurerm_subnet_network_security_group_association" "nsg_as" {
 
   subnet_id                 = azurerm_subnet.subnets[each.key].id
   network_security_group_id = azurerm_network_security_group.nsg[each.key].id
+
+  depends_on = [
+    time_sleep.wait
+  ]
 }
