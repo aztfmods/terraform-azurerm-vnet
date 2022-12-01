@@ -81,7 +81,7 @@ resource "time_sleep" "wait_50_seconds" {
 
   triggers = {
     # This sets up a proper dependency on the RAM association
-    subnet_id  = azurerm_subnet.subnets[each.key].id
+    subnet_id = azurerm_subnet.subnets[each.key].id
   }
 }
 
