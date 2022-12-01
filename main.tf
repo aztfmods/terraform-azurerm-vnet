@@ -77,16 +77,10 @@ resource "time_sleep" "wait_50_seconds" {
   depends_on       = [azurerm_subnet.subnets]
 }
 
-# resource "time_sleep" "wait_30_seconds" {
-#   depends_on = [null_resource.previous]
-
-#   create_duration = "30s"
-# }
-
-# This resource will create (at least) 30 seconds after null_resource.previous
-# resource "null_resource" "next" {
-#   depends_on = [time_sleep.wait_30_seconds]
-# }
+resource "time_sleep" "wait_50_seconds" {
+  destroy_duration = "30s"
+  depends_on       = [azurerm_subnet_network_security_group_association.nsg_as]
+}
 
 #----------------------------------------------------------------------------------------
 # nsg's
