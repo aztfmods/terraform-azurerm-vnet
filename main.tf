@@ -72,23 +72,14 @@ resource "azurerm_subnet" "subnets" {
 }
 
 resource "time_sleep" "wait_50_seconds" {
-  for_each = {
-    for subnet in local.network_subnets : "${subnet.network_key}.${subnet.subnet_key}" => subnet
-  }
-
-  create_duration = "30s"
-  # depends_on      = [azurerm_subnet.subnets]
-
-  triggers = {
-    # This sets up a proper dependency on the RAM association
-    subnet_id = azurerm_subnet.subnets[each.key].id
-  }
+  create_duration  = "50s"
+  depends_on       = [azurerm_subnet.subnets]
 }
 
-# resource "time_sleep" "wait_50_seconds_del" {
-#   destroy_duration = "50s"
-#   depends_on       = [azurerm_subnet.subnets]
-# }
+resource "time_sleep" "wait_50_seconds_del" {
+  destroy_duration = "50s"
+  depends_on       = [azurerm_subnet.subnets]
+}
 
 #----------------------------------------------------------------------------------------
 # nsg's
