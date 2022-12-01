@@ -71,11 +71,11 @@ resource "azurerm_subnet" "subnets" {
   }
 }
 
-resource "time_sleep" "wait_for_ingress_alb" {
-  create_duration = "300s"
+# resource "time_sleep" "wait_for_ingress_alb" {
+#   create_duration = "300s"
 
-  depends_on = [azurerm_subnet.subnets]
-}
+#   depends_on = [azurerm_subnet.subnets]
+# }
 
 #----------------------------------------------------------------------------------------
 # nsg's
