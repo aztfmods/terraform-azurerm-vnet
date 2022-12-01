@@ -72,13 +72,13 @@ resource "azurerm_subnet" "subnets" {
 }
 
 resource "time_sleep" "wait_50_seconds" {
-  create_duration  = "50s"
-  depends_on       = [azurerm_subnet.subnets]
+  create_duration = "50s"
+  depends_on      = [azurerm_subnet.subnets]
 }
 
 resource "time_sleep" "wait_50_seconds_del" {
   destroy_duration = "50s"
-  depends_on       = [azurerm_subnet_network_security_group_association.nsg_as]
+  depends_on       = [azurerm_subnet.subnets]
 }
 
 #----------------------------------------------------------------------------------------
