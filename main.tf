@@ -71,10 +71,21 @@ resource "azurerm_subnet" "subnets" {
   }
 }
 
-# resource "time_sleep" "wait_for_ingress_alb" {
-#   create_duration = "300s"
+resource "time_sleep" "wait_30_seconds" {
+  create_duration = "30s"
 
-#   depends_on = [azurerm_subnet.subnets]
+  depends_on = [azurerm_subnet.subnets]
+}
+
+# resource "time_sleep" "wait_30_seconds" {
+#   depends_on = [null_resource.previous]
+
+#   create_duration = "30s"
+# }
+
+# This resource will create (at least) 30 seconds after null_resource.previous
+# resource "null_resource" "next" {
+#   depends_on = [time_sleep.wait_30_seconds]
 # }
 
 #----------------------------------------------------------------------------------------
@@ -124,4 +135,5 @@ resource "azurerm_subnet_network_security_group_association" "nsg_as" {
   subnet_id                 = azurerm_subnet.subnets[each.key].id
   network_security_group_id = azurerm_network_security_group.nsg[each.key].id
 
+  depends_on = [time_sleep.wait_30_seconds]
 }
