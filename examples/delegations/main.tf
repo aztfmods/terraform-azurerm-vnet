@@ -42,7 +42,7 @@ module "vnet" {
         sn3 = {
           cidr = ["10.18.3.0/24"]
           delegations = {
-            sql = { name = "Microsoft.Sql/servers" }
+            web = { name = "Microsoft.Web/serverFarms" }
           }
         }
       }
