@@ -27,7 +27,24 @@ module "vnet" {
       resourcegroup = module.global.groups.demo.name
       cidr          = ["10.18.0.0/16"]
       subnets = {
-        demo = { cidr = ["10.18.1.0/24"] }
+        sn1 = {
+          cidr = ["10.18.1.0/24"]
+          delegations = {
+            databricks = { name = "Microsoft.Databricks/workspaces" }
+          }
+        }
+        sn2 = {
+          cidr = ["10.18.2.0/24"]
+          delegations = {
+            cosmosdb = { name = "Microsoft.AzureCosmosDB/clusters" }
+          }
+        }
+        sn3 = {
+          cidr = ["10.18.3.0/24"]
+          delegations = {
+            sql = { name = "Microsoft.Sql/servers" }
+          }
+        }
       }
     }
   }
