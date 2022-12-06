@@ -26,9 +26,6 @@ module "vnet" {
       location      = module.global.groups.demo.location
       resourcegroup = module.global.groups.demo.name
       cidr          = ["10.18.0.0/16"]
-      subnets = {
-        demo = { cidr = ["10.18.1.0/24"] }
-      }
     }
   }
   depends_on = [module.global]
