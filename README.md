@@ -7,31 +7,29 @@ Terraform module which creates virtual network resources on Azure.
 The below features are made available:
 
 - multiple virtual networks
-- [subnet](#usage-single-vnet-multiple-subnets) support on each virtual network
+- [subnet](#usage-subnets) support on each virtual network
 - [network security group](#usage-nsg-rules) support on each subnet with multiple rules
-- [service endpoint](#usage-endpoints), [delegation](examples/delegations/main.tf) support on each subnet
+- [service endpoint](examples/service-endpoints/main.tf), [delegation](examples/delegations/main.tf) support on each subnet
 - [terratest](https://terratest.gruntwork.io) is used to validate different integrations
 - [diagnostic](examples/diagnostic-settings/main.tf) logs integration
 - [ddos protection plan](examples/ddos-protection/main.tf) integration
 
 The below examples shows the usage when consuming the module:
 
-## Usage: multiple dns
+## Usage: simple
 
 ```hcl
 module "vnet" {
   source = "github.com/aztfmods/module-azurerm-vnet"
 
-  naming = {
-    company = local.naming.company
-    env     = local.naming.env
-    region  = local.naming.region
-  }
+  company = module.global.company
+  env     = module.global.env
+  region  = module.global.region
 
   vnets = {
     demo = {
-      location      = module.global.groups.network.location
-      resourcegroup = module.global.groups.network.name
+      location      = module.global.groups.demo.location
+      resourcegroup = module.global.groups.demo.name
       cidr          = ["10.18.0.0/16"]
       dns           = ["8.8.8.8","7.7.7.7"]
       subnets = {
@@ -43,22 +41,20 @@ module "vnet" {
 }
 ```
 
-## Usage: multiple subnets
+## Usage: subnets
 
 ```hcl
 module "vnet" {
   source = "github.com/aztfmods/module-azurerm-vnet"
 
-  naming = {
-    company = local.naming.company
-    env     = local.naming.env
-    region  = local.naming.region
-  }
+  company = module.global.company
+  env     = module.global.env
+  region  = module.global.region
 
   vnets = {
     demo = {
-      location      = module.global.groups.network.location
-      resourcegroup = module.global.groups.network.name
+      location      = module.global.groups.demo.location
+      resourcegroup = module.global.groups.demo.name
       cidr          = ["10.18.0.0/16"]
       subnets = {
         sn1 = { cidr = ["10.18.1.0/24"] }
@@ -76,16 +72,14 @@ module "vnet" {
 module "vnet" {
   source = "github.com/aztfmods/module-azurerm-vnet"
 
-  naming = {
-    company = local.naming.company
-    env     = local.naming.env
-    region  = local.naming.region
-  }
+  company = module.global.company
+  env     = module.global.env
+  region  = module.global.region
 
   vnets = {
     vnet1 = {
-      location      = module.global.groups.network.location
-      resourcegroup = module.global.groups.network.name
+      location      = module.global.groups.demo.location
+      resourcegroup = module.global.groups.demo.name
       cidr          = ["10.18.0.0/16"]
       subnets = {
         sn1 = {
@@ -108,16 +102,14 @@ module "vnet" {
 module "vnet" {
   source = "github.com/aztfmods/module-azurerm-vnet"
 
-  naming = {
-    company = local.naming.company
-    env     = local.naming.env
-    region  = local.naming.region
-  }
+  company = module.global.company
+  env     = module.global.env
+  region  = module.global.region
 
   vnets = {
     demo = {
-      location      = module.global.groups.network.location
-      resourcegroup = module.global.groups.network.name
+      location      = module.global.groups.demo.location
+      resourcegroup = module.global.groups.demo.name
       cidr          = ["10.18.0.0/16"]
       subnets = {
         sn1 = {
@@ -139,17 +131,15 @@ module "vnet" {
 module "vnet" {
   source = "github.com/aztfmods/module-azurerm-vnet"
 
-  naming = {
-    company = local.naming.company
-    env     = local.naming.env
-    region  = local.naming.region
-  }
+  company = module.global.company
+  env     = module.global.env
+  region  = module.global.region
 
   vnets = {
     vnet1 = {
       cidr          = ["10.18.0.0/16"]
-      location      = module.global.groups.network.location
-      resourcegroup = module.global.groups.network.name
+      location      = module.global.groups.demo.location
+      resourcegroup = module.global.groups.demo.name
       subnets = {
         sn1 = {
           cidr = ["10.18.1.0/24"]
