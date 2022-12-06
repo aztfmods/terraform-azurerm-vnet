@@ -2,44 +2,36 @@ provider "azurerm" {
   features {}
 }
 
-locals {
-  naming = {
-    company = "cn"
-    env     = "p"
-    region  = "weu"
-  }
-}
-
 module "global" {
   source = "github.com/aztfmods/module-azurerm-global"
+
+  company = "cn"
+  env     = "p"
+  region  = "weu"
+
   rgs = {
-    network = {
-      name     = "rg-${local.naming.company}-netw-${local.naming.env}-${local.naming.region}"
-      location = "westeurope"
-    }
+    demo = { location = "westeurope" }
   }
 }
 
 module "vnet" {
   source = "../../"
 
-  naming = {
-    company = local.naming.company
-    env     = local.naming.env
-    region  = local.naming.region
-  }
+  company = module.global.company
+  env     = module.global.env
+  region  = module.global.region
 
   vnets = {
     demo = {
-      location      = module.global.groups.network.location
-      resourcegroup = module.global.groups.network.name
+      location      = module.global.groups.demo.location
+      resourcegroup = module.global.groups.demo.name
       cidr          = ["10.18.0.0/16"]
       subnets = {
-        sn1 = {
+        demo = {
           cidr = ["10.18.1.0/24"]
-          delegations = {
-            databricks = { name = "Microsoft.Databricks/workspaces" }
-          }
+          # delegations = {
+          #   databricks = { name = "Microsoft.Databricks/workspaces" }
+          # }
         }
       }
     }
