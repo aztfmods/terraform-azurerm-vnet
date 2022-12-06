@@ -37,8 +37,8 @@ module "vnet" {
       location      = module.global.groups.demo.location
       resourcegroup = module.global.groups.demo.name
       subnets = {
-        sn1 = { cidr = ["10.19.1.0/24"] }
-        sn2 = { cidr = ["10.19.2.0/24"] }
+        sn3 = { cidr = ["10.19.1.0/24"] }
+        sn4 = { cidr = ["10.19.2.0/24"] }
       }
     }
   }
