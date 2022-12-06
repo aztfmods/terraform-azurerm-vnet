@@ -13,7 +13,8 @@ func TestApplyNoError(t *testing.T) {
 		//"../examples/simple",
 		//"../examples/diagnostic-settings",
 		//"../examples/ddos-protection",
-		"../examples/delegations",
+		//"../examples/delegations",
+		"../examples/service-endpoints",
 	}
 
 	for _, test := range tests {
