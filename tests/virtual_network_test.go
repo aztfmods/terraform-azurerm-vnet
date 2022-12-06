@@ -14,7 +14,8 @@ func TestApplyNoError(t *testing.T) {
 		//"../examples/diagnostic-settings",
 		//"../examples/ddos-protection",
 		//"../examples/delegations",
-		"../examples/service-endpoints",
+		// "../examples/service-endpoints",
+		"../examples/nsg-rules",
 	}
 
 	for _, test := range tests {

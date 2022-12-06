@@ -8,7 +8,7 @@ The below features are made available:
 
 - multiple virtual networks
 - [subnet](#usage-subnets) support on each virtual network
-- [network security group](#usage-nsg-rules) support on each subnet with multiple rules
+- [network security group](examples/nsg-rules/main.tf) support on each subnet with multiple rules
 - [service endpoint](examples/service-endpoints/main.tf), [delegation](examples/delegations/main.tf) support on each subnet
 - [terratest](https://terratest.gruntwork.io) is used to validate different integrations
 - [diagnostic](examples/diagnostic-settings/main.tf) logs integration
