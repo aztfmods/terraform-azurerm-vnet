@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.7.0](https://github.com/aztfmods/module-azurerm-vnet/compare/v1.6.0...v1.7.0) (2022-12-06)
+
+
+### Features
+
+* add azurerm_network_security_group example ([#50](https://github.com/aztfmods/module-azurerm-vnet/issues/50)) ([6286167](https://github.com/aztfmods/module-azurerm-vnet/commit/6286167a6917ef2d68c37ce417bce829cb318052))
+* add delegation example ([#48](https://github.com/aztfmods/module-azurerm-vnet/issues/48)) ([464cfa5](https://github.com/aztfmods/module-azurerm-vnet/commit/464cfa5ce29d52064538ad23c37a727d6f0233a5))
+* add multiple vnets, subnets example ([#51](https://github.com/aztfmods/module-azurerm-vnet/issues/51)) ([9560bec](https://github.com/aztfmods/module-azurerm-vnet/commit/9560becc94e9689363465dae4682674b85059324))
+* add service_endpoints example ([#49](https://github.com/aztfmods/module-azurerm-vnet/issues/49)) ([4c7b2b1](https://github.com/aztfmods/module-azurerm-vnet/commit/4c7b2b1ba1857b01b88f6f18ecf405d6ce46476c))
+* small refactor naming convention ([#46](https://github.com/aztfmods/module-azurerm-vnet/issues/46)) ([f9ef6d1](https://github.com/aztfmods/module-azurerm-vnet/commit/f9ef6d1aad31a99c7d627c294d3829a9f82e3fce))
+
 ## [1.6.0](https://github.com/aztfmods/module-azurerm-vnet/compare/v1.5.0...v1.6.0) (2022-11-29)
 
 
