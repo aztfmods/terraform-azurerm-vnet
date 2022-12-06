@@ -6,7 +6,7 @@ Terraform module which creates virtual network resources on Azure.
 
 The below features are made available:
 
-- [multiple](examples/simple/main.tf) virtual network, subnet support
+- [multiple](examples/multiple/main.tf) virtual network, subnet support
 - [network security group](examples/nsg-rules/main.tf) support on each subnet with multiple rules
 - [service endpoint](examples/service-endpoints/main.tf), [delegation](examples/delegations/main.tf) support
 - [terratest](https://terratest.gruntwork.io) is used to validate different integrations
@@ -40,24 +40,34 @@ module "vnet" {
 }
 ```
 
-## Usage: subnets
+## Usage: multiple
 
 ```hcl
 module "vnet" {
-  source = "github.com/aztfmods/module-azurerm-vnet"
+  source = "../../"
 
   company = module.global.company
   env     = module.global.env
   region  = module.global.region
 
   vnets = {
-    demo = {
+    vnet1 = {
+      cidr          = ["10.18.0.0/16"]
       location      = module.global.groups.demo.location
       resourcegroup = module.global.groups.demo.name
-      cidr          = ["10.18.0.0/16"]
       subnets = {
         sn1 = { cidr = ["10.18.1.0/24"] }
         sn2 = { cidr = ["10.18.2.0/24"] }
+      }
+    }
+
+    vnet2 = {
+      cidr          = ["10.19.0.0/16"]
+      location      = module.global.groups.demo.location
+      resourcegroup = module.global.groups.demo.name
+      subnets = {
+        sn1 = { cidr = ["10.19.1.0/24"] }
+        sn2 = { cidr = ["10.19.2.0/24"] }
       }
     }
   }
