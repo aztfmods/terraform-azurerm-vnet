@@ -38,17 +38,15 @@ module "vnet" {
   region  = module.global.region
 
   vnets = {
-    demo = {
-      location      = module.global.groups.demo.location
-      resourcegroup = module.global.groups.demo.name
-      cidr          = ["10.18.0.0/16"]
-      dns           = ["8.8.8.8"]
-      subnets = {
-        sn1 = { cidr = ["10.18.1.0/24"], enforce_priv_link_policies = true }
-      }
-
-      ddos_plan = { enable = true, id = module.security.ddos_plan_id }
+    location      = module.global.groups.demo.location
+    resourcegroup = module.global.groups.demo.name
+    cidr          = ["10.18.0.0/16"]
+    dns           = ["8.8.8.8"]
+    subnets = {
+      sn1 = { cidr = ["10.18.1.0/24"], enforce_priv_link_policies = true }
     }
+
+    ddos_plan = { enable = true, id = module.security.ddos_plan_id }
   }
   depends_on = [module.global]
 }

@@ -1,33 +1,21 @@
 #----------------------------------------------------------------------------------------
-# Resourcegroups
-#----------------------------------------------------------------------------------------
-
-data "azurerm_resource_group" "rg" {
-  for_each = var.vnets
-
-  name = each.value.resourcegroup
-}
-
-#----------------------------------------------------------------------------------------
 # vnets
 #----------------------------------------------------------------------------------------
 
 resource "azurerm_virtual_network" "vnets" {
-  for_each = var.vnets
+  name                = "vnet-demo"
+  resource_group_name = var.vnets.resourcegroup
+  location            = var.vnets.location
+  address_space       = var.vnets.cidr
 
-  name                = "vnet-${var.company}-${each.key}-${var.env}-${var.region}"
-  resource_group_name = data.azurerm_resource_group.rg[each.key].name
-  location            = data.azurerm_resource_group.rg[each.key].location
-  address_space       = each.value.cidr
-
-  dynamic "ddos_protection_plan" {
-    for_each = try(each.value.ddos_plan.enable, false) == true ? range(1) : range(0)
-    iterator = v
-    content {
-      id     = each.value.ddos_plan.id
-      enable = true
-    }
-  }
+  # dynamic "ddos_protection_plan" {
+  #   for_each = try(each.value.ddos_plan.enable, false) == true ? range(1) : range(0)
+  #   iterator = v
+  #   content {
+  #     id     = each.value.ddos_plan.id
+  #     enable = true
+  #   }
+  # }
 }
 
 #----------------------------------------------------------------------------------------
@@ -35,10 +23,8 @@ resource "azurerm_virtual_network" "vnets" {
 #----------------------------------------------------------------------------------------
 
 resource "azurerm_virtual_network_dns_servers" "dns" {
-  for_each = var.vnets
-
-  virtual_network_id = azurerm_virtual_network.vnets[each.key].id
-  dns_servers        = try(each.value.dns, [])
+  dns_servers        = try(var.vnets.dns_servers, [])
+  virtual_network_id = azurerm_virtual_network.vnets.id
 }
 
 #----------------------------------------------------------------------------------------
@@ -47,11 +33,11 @@ resource "azurerm_virtual_network_dns_servers" "dns" {
 
 resource "azurerm_subnet" "subnets" {
   for_each = {
-    for subnet in local.network_subnets : "${subnet.network_key}.${subnet.subnet_key}" => subnet
+    for subnet in local.subnets : subnet.subnet_key => subnet
   }
 
   name                                          = each.value.subnet_name
-  resource_group_name                           = each.value.rg_name
+  resource_group_name                           = var.vnets.resourcegroup
   virtual_network_name                          = each.value.virtual_network_name
   address_prefixes                              = each.value.address_prefixes
   service_endpoints                             = each.value.endpoints
@@ -77,11 +63,11 @@ resource "azurerm_subnet" "subnets" {
 
 resource "azurerm_network_security_group" "nsg" {
   for_each = {
-    for subnet in local.network_subnets : "${subnet.network_key}.${subnet.subnet_key}" => subnet
+    for subnet in local.subnets : subnet.subnet_key => subnet
   }
 
   name                = each.value.nsg_name
-  resource_group_name = each.value.rg_name
+  resource_group_name = var.vnets.resourcegroup
   location            = each.value.location
 
   dynamic "security_rule" {
@@ -112,7 +98,7 @@ resource "azurerm_network_security_group" "nsg" {
 
 resource "azurerm_subnet_network_security_group_association" "nsg_as" {
   for_each = {
-    for subnet in local.network_subnets : "${subnet.network_key}.${subnet.subnet_key}" => subnet
+    for assoc in local.subnets : assoc.subnet_key => assoc
   }
 
   subnet_id                 = azurerm_subnet.subnets[each.key].id

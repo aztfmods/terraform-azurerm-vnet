@@ -1,17 +1,14 @@
-![example workflow](https://github.com/aztfmods/module-azurerm-vnet/actions/workflows/validate.yml/badge.svg)
-
 # Virtual Network
 
-Terraform module which creates virtual network resources on Azure.
+The terraform module simplifies the process of creating and managing virtual network resources on azure with configurable options for network topology, subnets, security groups, and more to ensure a secure and efficient environment for resource communication in the cloud.
 
 The below features are made available:
 
-- [multiple](examples/multiple/main.tf) virtual network, subnet support
-- [network security group](examples/nsg-rules/main.tf) support on each subnet with multiple rules
-- [service endpoint](examples/service-endpoints/main.tf), [delegation](examples/delegations/main.tf) support
-- [terratest](https://terratest.gruntwork.io) is used to validate different integrations
-- [diagnostic](examples/diagnostic-settings/main.tf) logs integration
-- [ddos protection plan](examples/ddos-protection/main.tf) integration
+- network security group support on each subnet with multiple rules
+- service endpoint, delegation support
+- terratest is used to validate different integrations
+- diagnostic logs integration
+- ddos protection plan integration
 
 The below examples shows the usage when consuming the module:
 
@@ -26,14 +23,11 @@ module "vnet" {
   region  = module.global.region
 
   vnets = {
-    demo = {
-      location      = module.global.groups.demo.location
-      resourcegroup = module.global.groups.demo.name
-      cidr          = ["10.18.0.0/16"]
-      dns           = ["8.8.8.8","7.7.7.7"]
-      subnets = {
-        sn1 = { cidr = ["10.18.1.0/24"] }
-      }
+    location      = module.global.groups.demo.location
+    resourcegroup = module.global.groups.demo.name
+    cidr          = ["10.18.0.0/16"]
+    subnets = {
+      sn1 = { cidr = ["10.18.1.0/24"] }
     }
   }
   depends_on = [module.global]
@@ -51,18 +45,16 @@ module "vnet" {
   region  = module.global.region
 
   vnets = {
-    vnet1 = {
-      location      = module.global.groups.demo.location
-      resourcegroup = module.global.groups.demo.name
-      cidr          = ["10.18.0.0/16"]
-      subnets = {
-        sn1 = {
-          cidr = ["10.18.1.0/24"]
-          endpoints = [
-            "Microsoft.Storage",
-            "Microsoft.Sql"
-          ]
-        }
+    location      = module.global.groups.demo.location
+    resourcegroup = module.global.groups.demo.name
+    cidr          = ["10.18.0.0/16"]
+    subnets = {
+      demo = {
+        cidr = ["10.18.3.0/24"]
+        endpoints = [
+          "Microsoft.Storage",
+          "Microsoft.Sql"
+        ]
       }
     }
   }
@@ -81,16 +73,14 @@ module "vnet" {
   region  = module.global.region
 
   vnets = {
-    demo = {
-      location      = module.global.groups.demo.location
-      resourcegroup = module.global.groups.demo.name
-      cidr          = ["10.18.0.0/16"]
-      subnets = {
-        sn1 = {
-          cidr = ["10.18.1.0/24"]
-          delegations = {
-            databricks = { name = "Microsoft.Databricks/workspaces" }
-          }
+    location      = module.global.groups.demo.location
+    resourcegroup = module.global.groups.demo.name
+    cidr          = ["10.18.0.0/16"]
+    subnets = {
+      sn1 = {
+        cidr = ["10.18.1.0/24"]
+        delegations = {
+          databricks = { name = "Microsoft.Databricks/workspaces" }
         }
       }
     }
@@ -110,18 +100,16 @@ module "vnet" {
   region  = module.global.region
 
   vnets = {
-    vnet1 = {
-      cidr          = ["10.18.0.0/16"]
-      location      = module.global.groups.demo.location
-      resourcegroup = module.global.groups.demo.name
-      subnets = {
-        sn1 = {
-          cidr = ["10.18.1.0/24"]
-          rules = [
-            {name = "myhttps",priority = 100,direction = "Inbound",access = "Allow",protocol = "Tcp",source_port_range = "*",destination_port_range = "443",source_address_prefix = "10.151.1.0/24",destination_address_prefix = "*"},
-            {name = "mysql",priority = 200,direction = "Inbound",access = "Allow",protocol = "Tcp",source_port_range = "*",destination_port_range = "3306",source_address_prefix = "10.0.0.0/24",destination_address_prefix = "*"}
-          ]
-        }
+    cidr          = ["10.18.0.0/16"]
+    location      = module.global.groups.demo.location
+    resourcegroup = module.global.groups.demo.name
+    subnets = {
+      sn1 = {
+        cidr = ["10.18.1.0/24"]
+        rules = [
+          { name = "myhttps", priority = 100, direction = "Inbound", access = "Allow", protocol = "Tcp", source_port_range = "*", destination_port_range = "443", source_address_prefix = "10.151.1.0/24", destination_address_prefix = "*" },
+          { name = "mysql", priority = 200, direction = "Inbound", access = "Allow", protocol = "Tcp", source_port_range = "*", destination_port_range = "3306", source_address_prefix = "10.0.0.0/24", destination_address_prefix = "*" }
+        ]
       }
     }
   }
@@ -133,18 +121,11 @@ module "vnet" {
 
 | Name | Type |
 | :-- | :-- |
-| [azurerm_resource_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group) | resource |
 | [azurerm_virtual_network](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network) | resource |
 | [azurerm_virtual_network_dns_servers](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network_dns_servers) | resource |
 | [azurerm_subnet](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet) | resource |
 | [azurerm_network_security_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_group) | resource |
 | [azurerm_subnet_network_security_group_association](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet_network_security_group_association) | resource |
-
-## Data Sources
-
-| Name | Type |
-| :-- | :-- |
-| [azurerm_resource_group](https://registry.terraform.io/providers/hashicorp/azurerm/1.39.0/docs/data-sources/resource_group) | datasource |
 
 ## Inputs
 

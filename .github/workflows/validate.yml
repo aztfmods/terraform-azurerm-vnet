@@ -1,13 +1,13 @@
 name: validate
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths-ignore:
-      - 'README.md'
-      - '.github/workflows/validate.yml'
-      - '.github/settings.yml'
+  # pull_request:
+  #   branches:
+  #     - main
+  #   paths-ignore:
+  #     - 'README.md'
+  #     - '.github/workflows/validate.yml'
+  #     - '.github/settings.yml'
   workflow_dispatch:
 
 jobs:
