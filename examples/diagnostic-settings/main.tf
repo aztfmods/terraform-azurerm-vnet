@@ -40,15 +40,13 @@ module "vnet" {
   region  = module.global.region
 
   vnets = {
-    demo = {
-      location      = module.global.groups.demo.location
-      resourcegroup = module.global.groups.demo.name
-      cidr          = ["10.18.0.0/16"]
-      dns           = ["8.8.8.8"]
-      subnets = {
-        sn1 = { cidr = ["10.18.1.0/24"] }
-        sn2 = { cidr = ["10.18.2.0/24"] }
-      }
+    location      = module.global.groups.demo.location
+    resourcegroup = module.global.groups.demo.name
+    cidr          = ["10.18.0.0/16"]
+    dns           = ["8.8.8.8"]
+    subnets = {
+      sn1 = { cidr = ["10.18.1.0/24"] }
+      sn2 = { cidr = ["10.18.2.0/24"] }
     }
   }
   depends_on = [module.global]

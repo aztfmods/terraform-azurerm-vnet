@@ -22,18 +22,16 @@ module "vnet" {
   region  = module.global.region
 
   vnets = {
-    demo = {
-      location      = module.global.groups.demo.location
-      resourcegroup = module.global.groups.demo.name
-      cidr          = ["10.18.0.0/16"]
-      subnets = {
-        demo = {
-          cidr = ["10.18.3.0/24"]
-          endpoints = [
-            "Microsoft.Storage",
-            "Microsoft.Sql"
-          ]
-        }
+    location      = module.global.groups.demo.location
+    resourcegroup = module.global.groups.demo.name
+    cidr          = ["10.18.0.0/16"]
+    subnets = {
+      demo = {
+        cidr = ["10.18.3.0/24"]
+        endpoints = [
+          "Microsoft.Storage",
+          "Microsoft.Sql"
+        ]
       }
     }
   }
