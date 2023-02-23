@@ -11,39 +11,54 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-const resourceGroupName = "rg-cn-demo-p-weu"
-
 func TestVirtualNetwork(t *testing.T) {
 	t.Parallel()
 
 	tfOpts := &terraform.Options{
-		TerraformDir: "../examples/simple",
+		TerraformDir: "../examples/complete",
 		NoColor:      true,
 		Parallelism:  2,
 	}
 
-	// defer terraform.Destroy(t, tfOpts)
+	defer terraform.Destroy(t, tfOpts)
 	terraform.InitAndApply(t, tfOpts)
 
 	vnets := terraform.OutputMap(t, tfOpts, "vnets")
 	virtualNetworkName := vnets["name"]
+	resourceGroupName := vnets["resource_group_name"]
 	subscriptionID := terraform.Output(t, tfOpts, "subscriptionId")
 	require.NotEmpty(t, virtualNetworkName)
 
 	authorizer, err := azure.NewAuthorizer()
 	require.NoError(t, err)
 
-	virtualNetworkClient := newVirtualNetworkClient(subscriptionID, *authorizer)
+	virtualNetworkClient := network.NewVirtualNetworksClient(subscriptionID)
+	virtualNetworkClient.Authorizer = *authorizer
+
 	virtualNetwork, err := virtualNetworkClient.Get(context.Background(), resourceGroupName, virtualNetworkName, "")
 	require.NoError(t, err)
 
-	require.Equal(t, virtualNetworkName, *virtualNetwork.Name)
-	require.Equal(t, "Succeeded", string(virtualNetwork.ProvisioningState))
-
-	checkSubnets(t, subscriptionID, resourceGroupName, virtualNetworkName, tfOpts, *authorizer)
+	verifyVirtualNetwork(t, virtualNetworkName, &virtualNetwork)
+	verifySubnetsExist(t, subscriptionID, resourceGroupName, virtualNetworkName, tfOpts, *authorizer)
 }
 
-func checkSubnets(t *testing.T, subscriptionID string, resourceGroupName string, virtualNetworkName string, tfOpts *terraform.Options, authorizer autorest.Authorizer) {
+func verifyVirtualNetwork(t *testing.T, virtualNetworkName string, virtualNetwork *network.VirtualNetwork) {
+	require.Equal(
+		t,
+		virtualNetworkName,
+		*virtualNetwork.Name,
+		"Virtual network name does not match expected value",
+	)
+
+	require.Equal(
+		t,
+		"Succeeded",
+		string(virtualNetwork.ProvisioningState),
+		"Virtual network provisioning state is not 'Succeeded'",
+	)
+}
+
+func verifySubnetsExist(t *testing.T, subscriptionID string, resourceGroupName string, virtualNetworkName string, tfOpts *terraform.Options, authorizer autorest.Authorizer) {
 	subnetClient := network.NewSubnetsClient(subscriptionID)
 	subnetClient.Authorizer = authorizer
 
@@ -55,12 +70,20 @@ func checkSubnets(t *testing.T, subscriptionID string, resourceGroupName string,
 
 	for _, v := range *subnetsPage.Response().Value {
 		subnetName := *v.Name
-		require.Contains(t, subnetsOutput, subnetName)
-	}
-}
 
-func newVirtualNetworkClient(subscriptionID string, authorizer autorest.Authorizer) *network.VirtualNetworksClient {
-	virtualNetworkClient := network.NewVirtualNetworksClient(subscriptionID)
-	virtualNetworkClient.Authorizer = authorizer
-	return &virtualNetworkClient
+		require.Contains(
+			t,
+			subnetsOutput,
+			subnetName,
+			"Subnet name %s not found in Terraform output",
+			subnetName,
+		)
+
+		require.Equal(
+			t,
+			len(subnetsOutput),
+			len(*subnetsPage.Response().Value),
+			"Number of subnets in Terraform output does not match number of subnets in Azure",
+		)
+	}
 }
