@@ -1,74 +1,66 @@
-package test
+package tests
 
 import (
 	"context"
 	"testing"
 
-	"github.com/Azure/azure-sdk-for-go/profiles/latest/network/mgmt/network"
-	"github.com/Azure/go-autorest/autorest/azure/auth"
+	"github.com/Azure/azure-sdk-for-go/services/network/mgmt/2020-03-01/network"
+	"github.com/Azure/go-autorest/autorest"
+	"github.com/gruntwork-io/terratest/modules/azure"
 	"github.com/gruntwork-io/terratest/modules/terraform"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
-func TestTerraformVnetModuleOutputsExist(t *testing.T) {
-	terraformOptions := &terraform.Options{
+const resourceGroupName = "rg-cn-demo-p-weu"
+
+func TestVirtualNetwork(t *testing.T) {
+	t.Parallel()
+
+	tfOpts := &terraform.Options{
 		TerraformDir: "../examples/simple",
 		NoColor:      true,
 		Parallelism:  2,
 	}
 
-	// defer terraform.Destroy(t, terraformOptions)
-	terraform.InitAndApply(t, terraformOptions)
+	// defer terraform.Destroy(t, tfOpts)
+	terraform.InitAndApply(t, tfOpts)
 
-	vnetOutput := terraform.Output(t, terraformOptions, "vnets")
-	subnetOutput := terraform.Output(t, terraformOptions, "subnets")
+	vnets := terraform.OutputMap(t, tfOpts, "vnets")
+	virtualNetworkName := vnets["name"]
+	subscriptionID := terraform.Output(t, tfOpts, "subscriptionId")
+	require.NotEmpty(t, virtualNetworkName)
 
-	assert.NotEmpty(t, vnetOutput)
-	assert.NotEmpty(t, subnetOutput)
-}
+	authorizer, err := azure.NewAuthorizer()
+	require.NoError(t, err)
 
-func TestVirtualNetworkExists(t *testing.T) {
-	resourceGroupName := "rg-cn-demo-p-weu"
-	virtualNetworkName := "vnet-demo"
-
-	authorizer, err := auth.NewAuthorizerFromCLI()
-	if err != nil {
-		t.Fatalf("failed to get authorizer: %s", err)
-	}
-
-	virtualNetworkClient := network.NewVirtualNetworksClient("cb3cf69c-4cb7-4e42-8fd8-1aae3624f329")
-	virtualNetworkClient.Authorizer = authorizer
-
+	virtualNetworkClient := newVirtualNetworkClient(subscriptionID, *authorizer)
 	virtualNetwork, err := virtualNetworkClient.Get(context.Background(), resourceGroupName, virtualNetworkName, "")
-	if err != nil {
-		t.Fatalf("failed to get virtual network: %s", err)
-	}
+	require.NoError(t, err)
 
-	assert.Equal(t, virtualNetworkName, *virtualNetwork.Name)
+	require.Equal(t, virtualNetworkName, *virtualNetwork.Name)
+	require.Equal(t, "Succeeded", string(virtualNetwork.ProvisioningState))
+
+	checkSubnets(t, subscriptionID, resourceGroupName, virtualNetworkName, tfOpts, *authorizer)
 }
 
-func TestSubnetExists(t *testing.T) {
-	resourceGroupName := "rg-cn-demo-p-weu"
-	virtualNetworkName := "vnet-demo"
-	subnetName := "sn-cn-sn1-p-weu"
-
-	authorizer, err := auth.NewAuthorizerFromCLI()
-	if err != nil {
-		t.Fatalf("failed to get authorizer: %s", err)
-	}
-
-	virtualNetworkClient := network.NewVirtualNetworksClient("cb3cf69c-4cb7-4e42-8fd8-1aae3624f329")
-	virtualNetworkClient.Authorizer = authorizer
-
-	subnetClient := network.NewSubnetsClient("cb3cf69c-4cb7-4e42-8fd8-1aae3624f329")
+func checkSubnets(t *testing.T, subscriptionID string, resourceGroupName string, virtualNetworkName string, tfOpts *terraform.Options, authorizer autorest.Authorizer) {
+	subnetClient := network.NewSubnetsClient(subscriptionID)
 	subnetClient.Authorizer = authorizer
 
-	subnet, err := subnetClient.Get(context.Background(), resourceGroupName, virtualNetworkName, subnetName, "")
-	if err != nil {
-		t.Fatalf("failed to get subnet: %s", err)
-	}
+	subnetsPage, err := subnetClient.ListComplete(context.Background(), resourceGroupName, virtualNetworkName)
+	require.NoError(t, err)
 
-	assert.Equal(t, subnetName, *subnet.Name)
+	subnetsOutput := terraform.OutputMap(t, tfOpts, "subnets")
+	require.NotEmpty(t, subnetsOutput)
+
+	for _, v := range *subnetsPage.Response().Value {
+		subnetName := *v.Name
+		require.Contains(t, subnetsOutput, subnetName)
+	}
 }
 
-// .TODO - create seperate function azure cli auth + get subscription etc
+func newVirtualNetworkClient(subscriptionID string, authorizer autorest.Authorizer) *network.VirtualNetworksClient {
+	virtualNetworkClient := network.NewVirtualNetworksClient(subscriptionID)
+	virtualNetworkClient.Authorizer = authorizer
+	return &virtualNetworkClient
+}
