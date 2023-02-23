@@ -27,6 +27,7 @@ module "vnet" {
     cidr          = ["10.18.0.0/16"]
     subnets = {
       sn1 = { cidr = ["10.18.1.0/24"] }
+      sn2 = { cidr = ["10.18.2.0/24"] }
     }
   }
   depends_on = [module.global]

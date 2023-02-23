@@ -1,35 +1,89 @@
-package test
+package tests
 
 import (
+	"context"
 	"testing"
 
+	"github.com/Azure/azure-sdk-for-go/services/network/mgmt/2020-03-01/network"
+	"github.com/Azure/go-autorest/autorest"
+	"github.com/gruntwork-io/terratest/modules/azure"
 	"github.com/gruntwork-io/terratest/modules/terraform"
+	"github.com/stretchr/testify/require"
 )
 
-func TestApplyNoError(t *testing.T) {
+func TestVirtualNetwork(t *testing.T) {
 	t.Parallel()
 
-	tests := []string{
-		"../examples/simple",
-		//"../examples/diagnostic-settings",
-		//"../examples/ddos-protection",
-		//"../examples/delegations",
-		// "../examples/service-endpoints",
-		// "../examples/nsg-rules",
+	tfOpts := &terraform.Options{
+		TerraformDir: "../examples/complete",
+		NoColor:      true,
+		Parallelism:  2,
 	}
 
-	for _, test := range tests {
-		t.Run(test, func(t *testing.T) {
-			terraformOptions := &terraform.Options{
-				TerraformDir: test,
-				NoColor:      true,
-				Parallelism:  2,
-			}
+	defer terraform.Destroy(t, tfOpts)
+	terraform.InitAndApply(t, tfOpts)
 
-			terraform.WithDefaultRetryableErrors(t, &terraform.Options{})
+	vnets := terraform.OutputMap(t, tfOpts, "vnets")
+	virtualNetworkName := vnets["name"]
+	resourceGroupName := vnets["resource_group_name"]
+	subscriptionID := terraform.Output(t, tfOpts, "subscriptionId")
+	require.NotEmpty(t, virtualNetworkName)
 
-			defer terraform.Destroy(t, terraformOptions)
-			terraform.InitAndApply(t, terraformOptions)
-		})
+	authorizer, err := azure.NewAuthorizer()
+	require.NoError(t, err)
+
+	virtualNetworkClient := network.NewVirtualNetworksClient(subscriptionID)
+	virtualNetworkClient.Authorizer = *authorizer
+
+	virtualNetwork, err := virtualNetworkClient.Get(context.Background(), resourceGroupName, virtualNetworkName, "")
+	require.NoError(t, err)
+
+	verifyVirtualNetwork(t, virtualNetworkName, &virtualNetwork)
+	verifySubnetsExist(t, subscriptionID, resourceGroupName, virtualNetworkName, tfOpts, *authorizer)
+}
+
+func verifyVirtualNetwork(t *testing.T, virtualNetworkName string, virtualNetwork *network.VirtualNetwork) {
+	require.Equal(
+		t,
+		virtualNetworkName,
+		*virtualNetwork.Name,
+		"Virtual network name does not match expected value",
+	)
+
+	require.Equal(
+		t,
+		"Succeeded",
+		string(virtualNetwork.ProvisioningState),
+		"Virtual network provisioning state is not 'Succeeded'",
+	)
+}
+
+func verifySubnetsExist(t *testing.T, subscriptionID string, resourceGroupName string, virtualNetworkName string, tfOpts *terraform.Options, authorizer autorest.Authorizer) {
+	subnetClient := network.NewSubnetsClient(subscriptionID)
+	subnetClient.Authorizer = authorizer
+
+	subnetsPage, err := subnetClient.ListComplete(context.Background(), resourceGroupName, virtualNetworkName)
+	require.NoError(t, err)
+
+	subnetsOutput := terraform.OutputMap(t, tfOpts, "subnets")
+	require.NotEmpty(t, subnetsOutput)
+
+	for _, v := range *subnetsPage.Response().Value {
+		subnetName := *v.Name
+
+		require.Contains(
+			t,
+			subnetsOutput,
+			subnetName,
+			"Subnet name %s not found in Terraform output",
+			subnetName,
+		)
+
+		require.Equal(
+			t,
+			len(subnetsOutput),
+			len(*subnetsPage.Response().Value),
+			"Number of subnets in Terraform output does not match number of subnets in Azure",
+		)
 	}
 }
