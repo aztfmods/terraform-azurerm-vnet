@@ -4,7 +4,7 @@ output "vnets" {
 
 output "subnets" {
   value = { for s in module.vnet.subnets : s.name => {
-    id = s.id
+    id   = s.id
     name = s.name
     }
   }
