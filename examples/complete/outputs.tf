@@ -1,9 +1,9 @@
-output "vnets" {
-  value = module.vnet.vnets
+output "vnet" {
+  value = module.network.vnet
 }
 
 output "subnets" {
-  value = { for s in module.vnet.subnets : s.name => {
+  value = { for s in module.network.subnets : s.name => {
     id   = s.id
     name = s.name
     }
@@ -11,5 +11,5 @@ output "subnets" {
 }
 
 output "subscriptionId" {
-  value = module.vnet.subscriptionId
+  value = module.network.subscriptionId
 }

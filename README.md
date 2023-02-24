@@ -4,8 +4,8 @@ The terraform module simplifies the process of creating and managing virtual net
 
 The below features are made available:
 
-- network security group support on each subnet with multiple rules
-- service endpoint, delegation support
+- network security group on each subnet with multiple rules
+- service endpoint, delegation
 - terratest is used to validate different integrations
 - diagnostic logs integration
 - ddos protection plan integration
@@ -15,14 +15,14 @@ The below examples shows the usage when consuming the module:
 ## Usage: simple
 
 ```hcl
-module "vnet" {
+module "network" {
   source = "github.com/aztfmods/module-azurerm-vnet"
 
   company = module.global.company
   env     = module.global.env
   region  = module.global.region
 
-  vnets = {
+  vnet = {
     location      = module.global.groups.demo.location
     resourcegroup = module.global.groups.demo.name
     cidr          = ["10.18.0.0/16"]
@@ -37,14 +37,14 @@ module "vnet" {
 ## Usage: endpoints
 
 ```hcl
-module "vnet" {
+module "network" {
   source = "github.com/aztfmods/module-azurerm-vnet"
 
   company = module.global.company
   env     = module.global.env
   region  = module.global.region
 
-  vnets = {
+  vnet = {
     location      = module.global.groups.demo.location
     resourcegroup = module.global.groups.demo.name
     cidr          = ["10.18.0.0/16"]
@@ -65,14 +65,14 @@ module "vnet" {
 ## Usage: delegations
 
 ```hcl
-module "vnet" {
+module "network" {
   source = "github.com/aztfmods/module-azurerm-vnet"
 
   company = module.global.company
   env     = module.global.env
   region  = module.global.region
 
-  vnets = {
+  vnet = {
     location      = module.global.groups.demo.location
     resourcegroup = module.global.groups.demo.name
     cidr          = ["10.18.0.0/16"]
@@ -92,14 +92,14 @@ module "vnet" {
 ## Usage: nsg rules
 
 ```hcl
-module "vnet" {
+module "network" {
   source = "github.com/aztfmods/module-azurerm-vnet"
 
   company = module.global.company
   env     = module.global.env
   region  = module.global.region
 
-  vnets = {
+  vnet = {
     cidr          = ["10.18.0.0/16"]
     location      = module.global.groups.demo.location
     resourcegroup = module.global.groups.demo.name
@@ -132,13 +132,17 @@ module "vnet" {
 | Name | Description | Type | Required |
 | :-- | :-- | :-- | :-- |
 | `vnets` | describes vnet related configuration | object | yes |
-| `naming` | contains naming convention | string | yes |
+| `company` | contains the company name used, for naming convention | string | yes |
+| `region` | contains the shortname of the region, used for naming convention | string | yes |
+| `env` | contains shortname of the environment used for naming convention | string | yes |
 
 ## Outputs
 
 | Name | Description |
 | :-- | :-- |
-| `vnets` | contains all vnets |
+| `vnet` | contains all vnet configuration |
+| `subnets` | contains all subnets configuration |
+| `subscriptionId` | contains the current subsriptionId |
 | `merged_ids` | contains all resource id's specified within the module |
 
 ## Authors

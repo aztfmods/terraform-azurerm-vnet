@@ -20,12 +20,12 @@ func TestVirtualNetwork(t *testing.T) {
 		Parallelism:  2,
 	}
 
-	defer terraform.Destroy(t, tfOpts)
+	// defer terraform.Destroy(t, tfOpts)
 	terraform.InitAndApply(t, tfOpts)
 
-	vnets := terraform.OutputMap(t, tfOpts, "vnets")
-	virtualNetworkName := vnets["name"]
-	resourceGroupName := vnets["resource_group_name"]
+	vnet := terraform.OutputMap(t, tfOpts, "vnet")
+	virtualNetworkName := vnet["name"]
+	resourceGroupName := vnet["resource_group_name"]
 	subscriptionID := terraform.Output(t, tfOpts, "subscriptionId")
 	require.NotEmpty(t, virtualNetworkName)
 
