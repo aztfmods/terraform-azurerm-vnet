@@ -10,20 +10,20 @@ module "global" {
   region  = "weu"
 
   rgs = {
-    demotest = { location = "westeurope" }
+    demo = { location = "westeurope" }
   }
 }
 
-module "vnet" {
+module "network" {
   source = "../.."
 
   company = module.global.company
   env     = module.global.env
   region  = module.global.region
 
-  vnets = {
-    location      = module.global.groups.demotest.location
-    resourcegroup = module.global.groups.demotest.name
+  vnet = {
+    location      = module.global.groups.demo.location
+    resourcegroup = module.global.groups.demo.name
     cidr          = ["10.18.0.0/16"]
     subnets = {
       sn1 = {
@@ -36,7 +36,9 @@ module "vnet" {
       sn2 = {
         cidr = ["10.18.2.0/24"]
         delegations = {
-          databricks = { name = "Microsoft.Databricks/workspaces" }
+          databricks = {
+            name = "Microsoft.Databricks/workspaces"
+          }
         }
       }
       sn3 = {

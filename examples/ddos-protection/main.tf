@@ -30,14 +30,14 @@ module "security" {
   depends_on = [module.global]
 }
 
-module "vnet" {
+module "network" {
   source = "../../"
 
   company = module.global.company
   env     = module.global.env
   region  = module.global.region
 
-  vnets = {
+  vnet = {
     location      = module.global.groups.demo.location
     resourcegroup = module.global.groups.demo.name
     cidr          = ["10.18.0.0/16"]

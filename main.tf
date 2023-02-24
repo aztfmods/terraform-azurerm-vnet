@@ -1,14 +1,14 @@
 data "azurerm_subscription" "current" {}
 
 #----------------------------------------------------------------------------------------
-# vnets
+# virtual network
 #----------------------------------------------------------------------------------------
 
-resource "azurerm_virtual_network" "vnets" {
+resource "azurerm_virtual_network" "vnet" {
   name                = "vnet-demo"
-  resource_group_name = var.vnets.resourcegroup
-  location            = var.vnets.location
-  address_space       = var.vnets.cidr
+  resource_group_name = var.vnet.resourcegroup
+  location            = var.vnet.location
+  address_space       = var.vnet.cidr
 
   # dynamic "ddos_protection_plan" {
   #   for_each = try(each.value.ddos_plan.enable, false) == true ? range(1) : range(0)
@@ -25,8 +25,8 @@ resource "azurerm_virtual_network" "vnets" {
 #----------------------------------------------------------------------------------------
 
 resource "azurerm_virtual_network_dns_servers" "dns" {
-  dns_servers        = try(var.vnets.dns_servers, [])
-  virtual_network_id = azurerm_virtual_network.vnets.id
+  dns_servers        = try(var.vnet.dns_servers, [])
+  virtual_network_id = azurerm_virtual_network.vnet.id
 }
 
 #----------------------------------------------------------------------------------------
@@ -39,7 +39,7 @@ resource "azurerm_subnet" "subnets" {
   }
 
   name                                          = each.value.subnet_name
-  resource_group_name                           = var.vnets.resourcegroup
+  resource_group_name                           = var.vnet.resourcegroup
   virtual_network_name                          = each.value.virtual_network_name
   address_prefixes                              = each.value.address_prefixes
   service_endpoints                             = each.value.endpoints
@@ -69,7 +69,7 @@ resource "azurerm_network_security_group" "nsg" {
   }
 
   name                = each.value.nsg_name
-  resource_group_name = var.vnets.resourcegroup
+  resource_group_name = var.vnet.resourcegroup
   location            = each.value.location
 
   dynamic "security_rule" {
