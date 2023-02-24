@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.8.0](https://github.com/aztfmods/module-azurerm-vnet/compare/v1.7.0...v1.8.0) (2023-02-24)
+
+
+### Features
+
+* add nsg associations testing ([#61](https://github.com/aztfmods/module-azurerm-vnet/issues/61)) ([30f0247](https://github.com/aztfmods/module-azurerm-vnet/commit/30f024783621d91f8fe880ee1d9e6217e76aa445))
+* simplify structure ([#53](https://github.com/aztfmods/module-azurerm-vnet/issues/53)) ([93751b6](https://github.com/aztfmods/module-azurerm-vnet/commit/93751b6b9c04878b74684d5fc080558451a4e87c))
+* update documentation and cleanups ([#59](https://github.com/aztfmods/module-azurerm-vnet/issues/59)) ([ac90fcd](https://github.com/aztfmods/module-azurerm-vnet/commit/ac90fcd1cc836c60a552ada2324e19b243a128d4))
+
 ## [1.7.0](https://github.com/aztfmods/module-azurerm-vnet/compare/v1.6.0...v1.7.0) (2022-12-06)
 
 
