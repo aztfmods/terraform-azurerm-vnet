@@ -20,7 +20,7 @@ func TestVirtualNetwork(t *testing.T) {
 		Parallelism:  2,
 	}
 
-	// defer terraform.Destroy(t, tfOpts)
+	defer terraform.Destroy(t, tfOpts)
 	terraform.InitAndApply(t, tfOpts)
 
 	vnet := terraform.OutputMap(t, tfOpts, "vnet")
@@ -70,6 +70,7 @@ func verifySubnetsExist(t *testing.T, subscriptionID string, resourceGroupName s
 
 	for _, v := range *subnetsPage.Response().Value {
 		subnetName := *v.Name
+		subnetID := *v.ID
 
 		require.Contains(
 			t,
@@ -84,6 +85,13 @@ func verifySubnetsExist(t *testing.T, subscriptionID string, resourceGroupName s
 			len(subnetsOutput),
 			len(*subnetsPage.Response().Value),
 			"Number of subnets in Terraform output does not match number of subnets in Azure",
+		)
+
+		require.NotNil(
+			t,
+			v.NetworkSecurityGroup,
+			"No network security group association found for subnet %s",
+			subnetID,
 		)
 	}
 }
