@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.1](https://github.com/aztfmods/module-azurerm-vnet/compare/v1.8.0...v1.8.1) (2023-02-26)
+
+
+### Bug Fixes
+
+* because of api limitations forced a sequential destroy ([#62](https://github.com/aztfmods/module-azurerm-vnet/issues/62)) ([71c8bc2](https://github.com/aztfmods/module-azurerm-vnet/commit/71c8bc29cd28c8bce3d37a1f6098eee88a6d9e7f))
+
 ## [1.8.0](https://github.com/aztfmods/module-azurerm-vnet/compare/v1.7.0...v1.8.0) (2023-02-24)
 
 
