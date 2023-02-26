@@ -17,7 +17,7 @@ func TestVirtualNetwork(t *testing.T) {
 	tfOpts := &terraform.Options{
 		TerraformDir: "../examples/complete",
 		NoColor:      true,
-		Parallelism:  1,
+		Parallelism:  20,
 	}
 
 	defer sequentialDestroy(t, tfOpts)
@@ -30,7 +30,6 @@ func TestVirtualNetwork(t *testing.T) {
 	require.NotEmpty(t, virtualNetworkName)
 
 	authorizer, err := azure.NewAuthorizer()
-	require.NoError(t, err)
 
 	virtualNetworkClient := network.NewVirtualNetworksClient(subscriptionID)
 	virtualNetworkClient.Authorizer = *authorizer
