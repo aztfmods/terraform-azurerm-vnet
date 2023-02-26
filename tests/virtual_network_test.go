@@ -20,12 +20,7 @@ func TestVirtualNetwork(t *testing.T) {
 		Parallelism:  20,
 	}
 
-	// sequential destroy because of https://github.com/hashicorp/terraform-provider-azurerm/issues/17565
-	defer func() {
-		tfOpts.Parallelism = 1
-		terraform.Destroy(t, tfOpts)
-	}()
-
+	defer sequentialDestroy(t, tfOpts)
 	terraform.InitAndApply(t, tfOpts)
 
 	vnet := terraform.OutputMap(t, tfOpts, "vnet")
@@ -90,4 +85,10 @@ func verifySubnetsExist(t *testing.T, subscriptionID string, resourceGroupName s
 			"No network security group association found for subnet %s", subnetName,
 		)
 	}
+}
+
+// api limitations https://github.com/hashicorp/terraform-provider-azurerm/issues/17565
+func sequentialDestroy(t *testing.T, tfOpts *terraform.Options) {
+	tfOpts.Parallelism = 1
+	terraform.Destroy(t, tfOpts)
 }
