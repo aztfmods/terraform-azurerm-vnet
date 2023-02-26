@@ -30,6 +30,7 @@ func TestVirtualNetwork(t *testing.T) {
 	require.NotEmpty(t, virtualNetworkName)
 
 	authorizer, err := azure.NewAuthorizer()
+	require.NoError(t, err)
 
 	virtualNetworkClient := network.NewVirtualNetworksClient(subscriptionID)
 	virtualNetworkClient.Authorizer = *authorizer
