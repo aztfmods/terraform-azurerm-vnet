@@ -17,10 +17,15 @@ func TestVirtualNetwork(t *testing.T) {
 	tfOpts := &terraform.Options{
 		TerraformDir: "../examples/complete",
 		NoColor:      true,
-		Parallelism:  2,
+		Parallelism:  20,
 	}
 
-	defer terraform.Destroy(t, tfOpts)
+	// sequential destroy because of https://github.com/hashicorp/terraform-provider-azurerm/issues/17565
+	defer func() {
+		tfOpts.Parallelism = 1
+		terraform.Destroy(t, tfOpts)
+	}()
+
 	terraform.InitAndApply(t, tfOpts)
 
 	vnet := terraform.OutputMap(t, tfOpts, "vnet")
