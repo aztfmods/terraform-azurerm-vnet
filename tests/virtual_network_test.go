@@ -17,7 +17,7 @@ func TestVirtualNetwork(t *testing.T) {
 	tfOpts := &terraform.Options{
 		TerraformDir: "../examples/complete",
 		NoColor:      true,
-		Parallelism:  20,
+		Parallelism:  2,
 	}
 
 	defer sequentialDestroy(t, tfOpts)
