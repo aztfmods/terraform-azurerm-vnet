@@ -15,7 +15,7 @@ func TestVirtualNetwork(t *testing.T) {
 	t.Parallel()
 
 	tfOpts := &terraform.Options{
-		TerraformDir: "../examples/complete",
+		TerraformDir: os.Getenv("TF_WD"),
 		NoColor:      true,
 		Parallelism:  20,
 	}
