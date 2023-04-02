@@ -2,6 +2,7 @@ package tests
 
 import (
 	"context"
+	"os"
 	"testing"
 
 	"github.com/Azure/azure-sdk-for-go/services/network/mgmt/2020-03-01/network"
@@ -11,11 +12,40 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func TestApplyNoError(t *testing.T) {
+	t.Parallel()
+
+	tests := map[string]string{
+		"simple":              "../examples/simple",
+		"ddos-protection":     "../examples/ddos-protection",
+		"diagnostic-settings": "../examples/diagnostic-settings",
+		"nsg-rules":           "../examples/nsg-rules",
+		"service-endpoints":   "../examples/service-endpoints",
+		"delegations":         "../examples/delegations",
+	}
+
+	for name, path := range tests {
+		t.Run(name, func(t *testing.T) {
+			terraformOptions := &terraform.Options{
+				TerraformDir: path,
+				NoColor:      true,
+				Parallelism:  2,
+			}
+
+			terraform.WithDefaultRetryableErrors(t, &terraform.Options{})
+
+			defer sequentialDestroy(t, terraformOptions)
+			// defer terraform.Destroy(t, terraformOptions)
+			terraform.InitAndApply(t, terraformOptions)
+		})
+	}
+}
+
 func TestVirtualNetwork(t *testing.T) {
 	t.Parallel()
 
 	tfOpts := &terraform.Options{
-		TerraformDir: "../examples/complete",
+		TerraformDir: os.Getenv("TF_WD"),
 		NoColor:      true,
 		Parallelism:  20,
 	}
