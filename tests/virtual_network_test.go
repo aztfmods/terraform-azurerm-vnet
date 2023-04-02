@@ -14,6 +14,13 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+var filesToCleanup = []string{
+	".terraform",
+	".terraform.lock.hcl",
+	"terraform.tfstate",
+	"terraform.tfstate.backup",
+}
+
 func TestApplyNoError(t *testing.T) {
 	t.Parallel()
 
@@ -26,13 +33,6 @@ func TestApplyNoError(t *testing.T) {
 		"delegations":         "../examples/delegations",
 	}
 
-	filesToCleanup := []string{
-		".terraform",
-		".terraform.lock.hcl",
-		"terraform.tfstate",
-		"terraform.tfstate.backup",
-	}
-
 	for name, path := range tests {
 		t.Run(name, func(t *testing.T) {
 			terraformOptions := &terraform.Options{
@@ -43,10 +43,10 @@ func TestApplyNoError(t *testing.T) {
 
 			terraform.WithDefaultRetryableErrors(t, &terraform.Options{})
 
-			defer cleanupFiles(path, filesToCleanup)
+			defer cleanupFiles(path)
 			defer func() {
 				sequentialDestroy(t, terraformOptions)
-				cleanupFiles(path, filesToCleanup)
+				cleanupFiles(path)
 			}()
 
 			terraform.InitAndApply(t, terraformOptions)
@@ -63,7 +63,11 @@ func TestVirtualNetwork(t *testing.T) {
 		Parallelism:  20,
 	}
 
-	defer sequentialDestroy(t, tfOpts)
+	defer func() {
+		sequentialDestroy(t, tfOpts)
+		cleanupFiles(os.Getenv("TF_WD"))
+	}()
+
 	terraform.InitAndApply(t, tfOpts)
 
 	vnet := terraform.OutputMap(t, tfOpts, "vnet")
@@ -130,8 +134,8 @@ func verifySubnetsExist(t *testing.T, subscriptionID string, resourceGroupName s
 	}
 }
 
-func cleanupFiles(dir string, files []string) {
-	for _, file := range files {
+func cleanupFiles(dir string) {
+	for _, file := range filesToCleanup {
 		filePath := filepath.Join(dir, file)
 		if err := os.RemoveAll(filePath); err != nil {
 			fmt.Printf("Failed to remove %s: %v\n", filePath, err)
