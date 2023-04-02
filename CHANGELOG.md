@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0](https://github.com/aztfmods/module-azurerm-vnet/compare/v1.8.1...v1.9.0) (2023-04-02)
+
+
+### Features
+
+* improved cleanup function, which is used after testing ([#72](https://github.com/aztfmods/module-azurerm-vnet/issues/72)) ([05ad628](https://github.com/aztfmods/module-azurerm-vnet/commit/05ad628c24b532b1f00a52ae2eac9ac0a6d62c1c))
+
 ## [1.8.1](https://github.com/aztfmods/module-azurerm-vnet/compare/v1.8.0...v1.8.1) (2023-02-26)
 
 
