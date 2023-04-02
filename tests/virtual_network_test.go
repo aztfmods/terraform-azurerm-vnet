@@ -2,7 +2,9 @@ package tests
 
 import (
 	"context"
+	"fmt"
 	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/Azure/azure-sdk-for-go/services/network/mgmt/2020-03-01/network"
@@ -24,6 +26,13 @@ func TestApplyNoError(t *testing.T) {
 		"delegations":         "../examples/delegations",
 	}
 
+	filesToCleanup := []string{
+		".terraform",
+		".terraform.lock.hcl",
+		"terraform.tfstate",
+		"terraform.tfstate.backup",
+	}
+
 	for name, path := range tests {
 		t.Run(name, func(t *testing.T) {
 			terraformOptions := &terraform.Options{
@@ -34,8 +43,12 @@ func TestApplyNoError(t *testing.T) {
 
 			terraform.WithDefaultRetryableErrors(t, &terraform.Options{})
 
-			defer sequentialDestroy(t, terraformOptions)
-			// defer terraform.Destroy(t, terraformOptions)
+			defer cleanupFiles(path, filesToCleanup)
+			defer func() {
+				sequentialDestroy(t, terraformOptions)
+				cleanupFiles(path, filesToCleanup)
+			}()
+
 			terraform.InitAndApply(t, terraformOptions)
 		})
 	}
@@ -114,6 +127,15 @@ func verifySubnetsExist(t *testing.T, subscriptionID string, resourceGroupName s
 			v.NetworkSecurityGroup,
 			"No network security group association found for subnet %s", subnetName,
 		)
+	}
+}
+
+func cleanupFiles(dir string, files []string) {
+	for _, file := range files {
+		filePath := filepath.Join(dir, file)
+		if err := os.RemoveAll(filePath); err != nil {
+			fmt.Printf("Failed to remove %s: %v\n", filePath, err)
+		}
 	}
 }
 

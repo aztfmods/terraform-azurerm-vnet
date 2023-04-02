@@ -1,18 +1,24 @@
 TF_WORKDIR := ../examples/complete
 
-.PHONY: test simple
+.PHONY: complete simple delegations nsg-rules service-endpoints ddos-protection diagnostic-settings
 
-test:
-	cd tests && TF_WD=$(TF_WORKDIR) go test -v
+complete:
+	cd tests && TF_WD=$(TF_WORKDIR) go test -v -timeout 60m -run TestVirtualNetwork
 
 simple:
 	cd tests && go test -v -timeout 60m -run TestApplyNoError/simple
 
-# simple:
-# 	cd tests && go test -v -timeout 60m -run TestApplyNoError/simple
+delegations:
+	cd tests && go test -v -timeout 60m -run TestApplyNoError/delegations
 
-# simple:
-# 	cd tests && go test -v -timeout 60m -run TestApplyNoError/simple
+nsg-rules:
+	cd tests && go test -v -timeout 60m -run TestApplyNoError/nsg-rules
 
-# simple:
-# 	cd tests && go test -v -timeout 60m -run TestApplyNoError/simple
+service-endpoints:
+	cd tests && go test -v -timeout 60m -run TestApplyNoError/service-endpoints
+
+ddos-protection:
+	cd tests && go test -v -timeout 60m -run TestApplyNoError/ddos-protection
+
+diagnostic-settings:
+	cd tests && go test -v -timeout 60m -run TestApplyNoError/diagnostic-settings
