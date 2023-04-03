@@ -58,14 +58,15 @@ func TestVirtualNetwork(t *testing.T) {
 	t.Parallel()
 
 	tfOpts := &terraform.Options{
-		TerraformDir: os.Getenv("TF_WD"),
+		// TerraformDir: os.Getenv("TF_WD"),
+		TerraformDir: "../examples/complete",
 		NoColor:      true,
 		Parallelism:  20,
 	}
 
 	defer func() {
 		sequentialDestroy(t, tfOpts)
-		cleanupFiles(os.Getenv("TF_WD"))
+		cleanupFiles("../examples/complete")
 	}()
 
 	terraform.InitAndApply(t, tfOpts)

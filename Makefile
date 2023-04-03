@@ -1,9 +1,7 @@
-TF_WORKDIR := ../examples/complete
-
 .PHONY: complete simple delegations nsg-rules service-endpoints ddos-protection diagnostic-settings
 
 complete:
-	cd tests && TF_WD=$(TF_WORKDIR) go test -v -timeout 60m -run TestVirtualNetwork
+	cd tests && go test -v -timeout 60m -run TestVirtualNetwork
 
 simple:
 	cd tests && go test -v -timeout 60m -run TestApplyNoError/simple
