@@ -11,6 +11,7 @@ import (
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/gruntwork-io/terratest/modules/azure"
 	"github.com/gruntwork-io/terratest/modules/terraform"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -19,6 +20,21 @@ var filesToCleanup = []string{
 	".terraform.lock.hcl",
 	"terraform.tfstate",
 	"terraform.tfstate.backup",
+}
+
+const (
+	successColor = "\033[1;32m"
+	failureColor = "\033[1;31m"
+	resetColor   = "\033[0m"
+)
+
+func assertWithLogging(t *testing.T, assertionFunc func() bool, successMsg, failureMsg string) {
+	if assertionFunc() {
+		t.Logf("%sSUCCESS: %s%s", successColor, successMsg, resetColor)
+	} else {
+		t.Logf("%sFAILURE: %s%s", failureColor, failureMsg, resetColor)
+		t.Fail()
+	}
 }
 
 func TestApplyNoError(t *testing.T) {
@@ -90,17 +106,21 @@ func TestVirtualNetwork(t *testing.T) {
 }
 
 func verifyVirtualNetwork(t *testing.T, virtualNetworkName string, virtualNetwork *network.VirtualNetwork) {
-	require.Equal(
+	assertWithLogging(
 		t,
-		virtualNetworkName,
-		*virtualNetwork.Name,
+		func() bool {
+			return assert.Equal(t, virtualNetworkName, *virtualNetwork.Name)
+		},
+		fmt.Sprintf("Virtual network name matches expected value: %s", virtualNetworkName),
 		"Virtual network name does not match expected value",
 	)
 
-	require.Equal(
+	assertWithLogging(
 		t,
-		"Succeeded",
-		string(virtualNetwork.ProvisioningState),
+		func() bool {
+			return assert.Equal(t, "Succeeded", string(virtualNetwork.ProvisioningState))
+		},
+		"Virtual network provisioning state is 'Succeeded'",
 		"Virtual network provisioning state is not 'Succeeded'",
 	)
 }
@@ -118,18 +138,22 @@ func verifySubnetsExist(t *testing.T, subscriptionID string, resourceGroupName s
 	for _, v := range *subnetsPage.Response().Value {
 		subnetName := *v.Name
 
-		require.Contains(
+		assertWithLogging(
 			t,
-			subnetsOutput,
-			subnetName,
-			"Subnet name %s not found in Terraform output",
-			subnetName,
+			func() bool {
+				return assert.Contains(t, subnetsOutput, subnetName)
+			},
+			fmt.Sprintf("Subnet name %s found in Terraform output", subnetName),
+			fmt.Sprintf("Subnet name %s not found in Terraform output", subnetName),
 		)
 
-		require.NotNil(
+		assertWithLogging(
 			t,
-			v.NetworkSecurityGroup,
-			"No network security group association found for subnet %s", subnetName,
+			func() bool {
+				return assert.NotNil(t, v.NetworkSecurityGroup)
+			},
+			fmt.Sprintf("Network security group association found for subnet %s", subnetName),
+			fmt.Sprintf("No network security group association found for subnet %s", subnetName),
 		)
 	}
 }
