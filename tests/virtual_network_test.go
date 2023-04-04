@@ -16,10 +16,8 @@ import (
 )
 
 var filesToCleanup = []string{
-	".terraform",
-	".terraform.lock.hcl",
-	"terraform.tfstate",
-	"terraform.tfstate.backup",
+	"*.terraform*",
+	"*tfstate*",
 }
 
 const (
@@ -159,10 +157,18 @@ func verifySubnetsExist(t *testing.T, subscriptionID string, resourceGroupName s
 }
 
 func cleanupFiles(dir string) {
-	for _, file := range filesToCleanup {
-		filePath := filepath.Join(dir, file)
-		if err := os.RemoveAll(filePath); err != nil {
-			fmt.Printf("Failed to remove %s: %v\n", filePath, err)
+	for _, pattern := range filesToCleanup {
+		matches, err := filepath.Glob(filepath.Join(dir, pattern))
+		if err != nil {
+			fmt.Println("Error:", err)
+			continue
+		}
+		for _, filePath := range matches {
+			if err := os.RemoveAll(filePath); err != nil {
+				fmt.Printf("%sFailed to remove %s: %v%s\n", failureColor, filePath, err, resetColor)
+			} else {
+				fmt.Printf("%sSuccessfully removed %s%s\n", successColor, filePath, resetColor)
+			}
 		}
 	}
 }
