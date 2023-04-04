@@ -80,7 +80,14 @@ module "network" {
       sn1 = {
         cidr = ["10.18.1.0/24"]
         delegations = {
-          databricks = { name = "Microsoft.Databricks/workspaces" }
+          sql = {
+            name = "Microsoft.Sql/managedInstances"
+            service_actions = [
+              "Microsoft.Network/virtualNetworks/subnets/join/action",
+              "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+              "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
+            ]
+          }
         }
       }
     }

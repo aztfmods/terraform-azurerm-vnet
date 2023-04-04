@@ -29,17 +29,18 @@ module "network" {
       sn1 = {
         cidr = ["10.18.1.0/24"]
         delegations = {
-          databricks = { name = "Microsoft.Databricks/workspaces" }
+          sql = {
+            name = "Microsoft.Sql/managedInstances"
+            service_actions = [
+              "Microsoft.Network/virtualNetworks/subnets/join/action",
+              "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+              "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
+            ]
+          }
         }
       }
       sn2 = {
         cidr = ["10.18.2.0/24"]
-        delegations = {
-          cosmosdb = { name = "Microsoft.AzureCosmosDB/clusters" }
-        }
-      }
-      sn3 = {
-        cidr = ["10.18.3.0/24"]
         delegations = {
           web = { name = "Microsoft.Web/serverFarms" }
         }
