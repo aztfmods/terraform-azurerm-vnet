@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.0](https://github.com/aztfmods/module-azurerm-vnet/compare/v1.9.0...v1.10.0) (2023-04-04)
+
+
+### Features
+
+* improved test verbosity to provide more detailed output ([#75](https://github.com/aztfmods/module-azurerm-vnet/issues/75)) ([aefa2d4](https://github.com/aztfmods/module-azurerm-vnet/commit/aefa2d4f55a4f30e361e6e30e6626cd0839a5a7e))
+
 ## [1.9.0](https://github.com/aztfmods/module-azurerm-vnet/compare/v1.8.1...v1.9.0) (2023-04-02)
 
 
