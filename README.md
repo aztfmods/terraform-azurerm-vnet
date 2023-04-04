@@ -131,15 +131,13 @@ module "network" {
 
 This GitHub repository contains a [Makefile](./Makefile) designed to test various configurations, with each test target corresponding to different example use cases provided in the repository.
 
-To run these tests, ensure you have both Go and Terraform installed on your system.
-
-To execute a test, run the following command:
+To run these tests, ensure you have both Go and Terraform installed on your system. To execute a test, run the following command:
 
 ```bash
-make test-target
+make test
 ```
 
-> **Note:** Replace <test-target> with the desired test [target](./examples/).
+> **Note:** Replace test with the desired [usage](./examples/).
 
 
 The tests leverage Terratest, a Go library that simplifies writing automated tests for your infrastructure code. Terratest offers a range of helper functions and patterns designed to streamline common infrastructure testing tasks, making it easier to verify the correctness of your configurations.
