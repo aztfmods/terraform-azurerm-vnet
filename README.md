@@ -138,8 +138,7 @@ make test
 ```
 
 > **Note:** Replace test with the desired [usage](./examples/).
-
-
+  
 The tests leverage Terratest, a Go library that simplifies writing automated tests for your infrastructure code. Terratest offers a range of helper functions and patterns designed to streamline common infrastructure testing tasks, making it easier to verify the correctness of your configurations.
 
 ## Inputs
