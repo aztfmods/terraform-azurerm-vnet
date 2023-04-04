@@ -128,13 +128,12 @@ module "network" {
 | [azurerm_subnet_network_security_group_association](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet_network_security_group_association) | resource |
 
 ## Testing
+This GitHub repository features a [Makefile](./Makefile) tailored for testing various configurations. Each test target corresponds to different example use cases provided within the repository.
 
-This GitHub repository contains a [Makefile](./Makefile) designed to test various configurations, with each test target corresponding to different example use cases provided in the repository.
+Before running these tests, ensure that both Go and Terraform are installed on your system. To execute a specific test, use the following command ```make <test-target>```
+> **Note:** Replace <test-target> with the desired test case from the Makefile.
 
-To run these tests, ensure you have both Go and Terraform installed on your system. To execute a test, run the command ```make test```
-> **Note:** Replace test with the desired [usage](./examples/).
-    
-The tests leverage Terratest, a Go library that simplifies writing automated tests for your infrastructure code. Terratest offers a range of helper functions and patterns designed to streamline common infrastructure testing tasks, making it easier to verify the correctness of your configurations.
+The tests utilize Terratest, a Go library that streamlines the process of writing automated tests for your infrastructure code. Terratest provides a comprehensive set of helper functions and patterns, which facilitate common infrastructure testing tasks and enable easier verification of configuration correctness.
 
 ## Inputs
 
