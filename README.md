@@ -156,7 +156,6 @@ module "network" {
 This GitHub repository features a [Makefile](./Makefile) tailored for testing various configurations. Each test target corresponds to different example use cases provided within the repository.
 
 Before running these tests, ensure that both Go and Terraform are installed on your system. To execute a specific test, use the following command ```make <test-target>```
-> **Note:** Replace test-target with the desired test case from the Makefile.
 
 ## Authors
 
