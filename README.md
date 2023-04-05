@@ -158,8 +158,6 @@ This GitHub repository features a [Makefile](./Makefile) tailored for testing va
 Before running these tests, ensure that both Go and Terraform are installed on your system. To execute a specific test, use the following command ```make <test-target>```
 > **Note:** Replace test-target with the desired test case from the Makefile.
 
-> **Note:** The tests utilize Terratest, a Go library that streamlines the process of writing automated tests for your infrastructure code. It provides a comprehensive set of helper functions and patterns, which facilitate common infrastructure testing tasks and enable easier verification of configuration correctness.
-
 ## Authors
 
 Module is maintained by [Dennis Kool](https://github.com/dkooll) with help from [these awesome contributors](https://github.com/aztfmods/module-azurerm-vnet/graphs/contributors).
