@@ -1,9 +1,6 @@
 data "azurerm_subscription" "current" {}
 
-#----------------------------------------------------------------------------------------
 # virtual network
-#----------------------------------------------------------------------------------------
-
 resource "azurerm_virtual_network" "vnet" {
   name                = "vnet-demo"
   resource_group_name = var.vnet.resourcegroup
@@ -20,19 +17,13 @@ resource "azurerm_virtual_network" "vnet" {
   # }
 }
 
-#----------------------------------------------------------------------------------------
 # dns
-#----------------------------------------------------------------------------------------
-
 resource "azurerm_virtual_network_dns_servers" "dns" {
   dns_servers        = try(var.vnet.dns_servers, [])
   virtual_network_id = azurerm_virtual_network.vnet.id
 }
 
-#----------------------------------------------------------------------------------------
 # subnets
-#----------------------------------------------------------------------------------------
-
 resource "azurerm_subnet" "subnets" {
   for_each = {
     for subnet in local.subnets : subnet.subnet_key => subnet
@@ -59,11 +50,8 @@ resource "azurerm_subnet" "subnets" {
     }
   }
 }
-
-#----------------------------------------------------------------------------------------
+ 
 # nsg's
-#----------------------------------------------------------------------------------------
-
 resource "azurerm_network_security_group" "nsg" {
   for_each = {
     for subnet in local.subnets : subnet.subnet_key => subnet
@@ -95,10 +83,7 @@ resource "azurerm_network_security_group" "nsg" {
   }
 }
 
-#----------------------------------------------------------------------------------------
-# nsg subnet associations
-#----------------------------------------------------------------------------------------
-
+# nsg associations
 resource "azurerm_subnet_network_security_group_association" "nsg_as" {
   for_each = {
     for assoc in local.subnets : assoc.subnet_key => assoc
