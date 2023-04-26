@@ -11,28 +11,14 @@ import (
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/gruntwork-io/terratest/modules/azure"
 	"github.com/gruntwork-io/terratest/modules/terraform"
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 var filesToCleanup = []string{
-	"*.terraform*",
-	"*tfstate*",
-}
-
-const (
-	successColor = "\033[1;32m"
-	failureColor = "\033[1;31m"
-	resetColor   = "\033[0m"
-)
-
-func assertWithLogging(t *testing.T, assertionFunc func() bool, successMsg, failureMsg string) {
-	if assertionFunc() {
-		t.Logf("%sSUCCESS: %s%s", successColor, successMsg, resetColor)
-	} else {
-		t.Logf("%sFAILURE: %s%s", failureColor, failureMsg, resetColor)
-		t.Fail()
-	}
+	".terraform",
+	".terraform.lock.hcl",
+	"terraform.tfstate",
+	"terraform.tfstate.backup",
 }
 
 func TestApplyNoError(t *testing.T) {
@@ -104,21 +90,17 @@ func TestVirtualNetwork(t *testing.T) {
 }
 
 func verifyVirtualNetwork(t *testing.T, virtualNetworkName string, virtualNetwork *network.VirtualNetwork) {
-	assertWithLogging(
+	require.Equal(
 		t,
-		func() bool {
-			return assert.Equal(t, virtualNetworkName, *virtualNetwork.Name)
-		},
-		fmt.Sprintf("Virtual network name matches expected value: %s", virtualNetworkName),
+		virtualNetworkName,
+		*virtualNetwork.Name,
 		"Virtual network name does not match expected value",
 	)
 
-	assertWithLogging(
+	require.Equal(
 		t,
-		func() bool {
-			return assert.Equal(t, "Succeeded", string(virtualNetwork.ProvisioningState))
-		},
-		"Virtual network provisioning state is 'Succeeded'",
+		"Succeeded",
+		string(virtualNetwork.ProvisioningState),
 		"Virtual network provisioning state is not 'Succeeded'",
 	)
 }
@@ -136,39 +118,28 @@ func verifySubnetsExist(t *testing.T, subscriptionID string, resourceGroupName s
 	for _, v := range *subnetsPage.Response().Value {
 		subnetName := *v.Name
 
-		assertWithLogging(
+		require.Contains(
 			t,
-			func() bool {
-				return assert.Contains(t, subnetsOutput, subnetName)
-			},
-			fmt.Sprintf("Subnet name %s found in Terraform output", subnetName),
-			fmt.Sprintf("Subnet name %s not found in Terraform output", subnetName),
+			subnetsOutput,
+			subnetName,
+			"Subnet name %s not found in Terraform output",
+			subnetName,
 		)
 
-		assertWithLogging(
+		require.NotNil(
 			t,
-			func() bool {
-				return assert.NotNil(t, v.NetworkSecurityGroup)
-			},
-			fmt.Sprintf("Network security group association found for subnet %s", subnetName),
-			fmt.Sprintf("No network security group association found for subnet %s", subnetName),
+			v.NetworkSecurityGroup,
+			"No network security group association found for subnet %s", subnetName,
 		)
 	}
 }
 
 func cleanupFiles(dir string) {
-	for _, pattern := range filesToCleanup {
-		matches, err := filepath.Glob(filepath.Join(dir, pattern))
-		if err != nil {
-			fmt.Println("Error:", err)
-			continue
-		}
-		for _, filePath := range matches {
-			if err := os.RemoveAll(filePath); err != nil {
-				fmt.Printf("%sFailed to remove %s: %v%s\n", failureColor, filePath, err, resetColor)
-			} else {
-				fmt.Printf("%sSuccessfully removed %s%s\n", successColor, filePath, resetColor)
-			}
+	for _, file := range filesToCleanup {
+		filePath := filepath.Join(dir, file)
+		fmt.Printf("Cleaning up %s\n", file)
+		if err := os.RemoveAll(filePath); err != nil {
+			fmt.Printf("Failed to remove %s: %v\n", filePath, err)
 		}
 	}
 }
