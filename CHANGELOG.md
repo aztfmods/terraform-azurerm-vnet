@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.0](https://github.com/aztfmods/module-azurerm-vnet/compare/v1.10.0...v1.11.0) (2023-04-29)
+
+
+### Features
+
+* refactor tests to use shared package ([#83](https://github.com/aztfmods/module-azurerm-vnet/issues/83)) ([0eca6e5](https://github.com/aztfmods/module-azurerm-vnet/commit/0eca6e52687617c4b6ecb08d5949e67502afdb40))
+
 ## [1.10.0](https://github.com/aztfmods/module-azurerm-vnet/compare/v1.9.0...v1.10.0) (2023-04-04)
 
 
