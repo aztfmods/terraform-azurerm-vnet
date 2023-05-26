@@ -43,6 +43,15 @@ module "network" {
       }
       sn3 = {
         cidr = ["10.18.3.0/24"]
+        routes = {
+          udr1 = {
+            address_prefix = "Storage"
+            next_hop_type  = "Internet"
+          }
+        }
+      }
+      sn4 = {
+        cidr = ["10.18.4.0/24"]
         rules = [
           {
             name                       = "myhttps"

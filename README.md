@@ -5,10 +5,11 @@ This terraform module simplifies the process of creating and managing virtual ne
 The below features are made available:
 
 - network security group on each subnet with multiple rules
-- service endpoint, delegation
-- terratest is used to validate different integrations
+- service endpoints and delegations
+- terratest for validation
 - diagnostic logs integration
 - ddos protection plan integration
+- route table support with multiple user defined routes
 
 The below examples shows the usage when consuming the module:
 
@@ -124,6 +125,42 @@ module "network" {
 }
 ```
 
+## Usage: routes
+
+```hcl
+module "network" {
+  source = "github.com/aztfmods/module.azurerm-vnet"
+
+  company = module.global.company
+  env     = module.global.env
+  region  = module.global.region
+
+  vnet = {
+    location      = module.global.groups.demo.location
+    resourcegroup = module.global.groups.demo.name
+    cidr          = ["10.18.0.0/16"]
+    subnets = {
+      sn1 = {
+        cidr = ["10.18.1.0/24"]
+        routes = {
+          udr1 = {
+            address_prefix = "Storage"
+            next_hop_type  = "Internet"
+          }
+          udr2 = {
+            address_prefix = "SqlManagement"
+            next_hop_type  = "Internet"
+          }
+        }
+      }
+      sn2 = {
+        cidr = ["10.18.2.0/24"]
+      }
+    }
+  }
+  depends_on = [module.global]
+}
+````
 ## Resources
 
 | Name | Type |
@@ -133,6 +170,8 @@ module "network" {
 | [azurerm_subnet](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet) | resource |
 | [azurerm_network_security_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_group) | resource |
 | [azurerm_subnet_network_security_group_association](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet_network_security_group_association) | resource |
+| [azurerm_route_table](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/route_table) | resource |
+| [azurerm_subnet_route_table_association](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet_route_table_association) | resource |
 
 ## Inputs
 
