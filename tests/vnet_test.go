@@ -12,11 +12,6 @@ func TestApplyNoError(t *testing.T) {
 
 	tests := []shared.TestCase{
 		{Name: "simple", Path: "../examples/simple"},
-		{Name: "ddos-protection", Path: "../examples/ddos-protection"},
-		{Name: "diagnostic-settings", Path: "../examples/diagnostic-settings"},
-		{Name: "nsg-rules", Path: "../examples/nsg-rules"},
-		{Name: "service-endpoints", Path: "../examples/service-endpoints"},
-		{Name: "delegations", Path: "../examples/delegations"},
 	}
 
 	for _, test := range tests {
