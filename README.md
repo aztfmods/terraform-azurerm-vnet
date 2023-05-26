@@ -4,31 +4,29 @@ This terraform module simplifies the process of creating and managing virtual ne
 
 The below features are made available:
 
-- network security group on each subnet with multiple Rules:
+- network security group on each subnet with multiple rules:
 
 > each subnet is fortified by a network security group with multiple rules, effectively regulating traffic and enhancing overall network security.
 
-- service endpoint and delegation:
-Leveraging service endpoints and delegations ensures secure and direct connections to Azure services, enhancing performance and security.
+- service endpoints and delegations:
+
+> leveraging service endpoints and delegations ensures secure and direct connections to azure services, enhancing performance and security
 
 - terratest for validation:
-Validation of different integrations is ensured by employing terratest, a robust Go library. This provides a reliable way to run tests against infrastructure code, thereby enhancing its overall robustness.
+
+> validation of different integrations is ensured by employing terratest, a robust Go library. This provides a reliable way to run tests against infrastructure code, thereby enhancing its overall robustness.
 
 - diagnostic logs integration:
-The integration of Azure's Diagnostic Logs brings valuable insights into operations, errors, and other telemetry data, enabling efficient and proactive troubleshooting.
+
+> the integration of azure's diagnostic logs brings valuable insights into operations, errors, and other telemetry data, enabling efficient and proactive troubleshooting.
 
 - ddos protection plan integration:
-To enhance resilience against Distributed Denial-of-Service (DDoS) attacks, Azure's DDoS Protection Plan is integrated into the setup, bolstering defenses and ensuring service availability.
+
+> to enhance resilience against distributed denial of service attacks, azure's DDoS protection plan is integrated into the setup, bolstering defenses and ensuring service availability.
 
 - route table support with multiple user defined routes:
-Supporting route tables with multiple user-defined routes allows for greater control and flexibility over network traffic paths, catering to diverse business needs.
 
-- network security group on each subnet with multiple rules
-- service endpoint, delegation
-- terratest is used to validate different integrations
-- diagnostic logs integration
-- ddos protection plan integration
-- route table support with multiple user defined routes
+> supporting route tables with multiple user defined routes allows for greater control and flexibility over network traffic paths, catering to diverse business needs.
 
 The below examples shows the usage when consuming the module:
 
