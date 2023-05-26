@@ -5,7 +5,8 @@ This terraform module simplifies the process of creating and managing virtual ne
 The below features are made available:
 
 - network security group on each subnet with multiple Rules:
-Each subnet is fortified by a network security group with multiple rules, effectively regulating traffic and enhancing overall network security.
+
+> each subnet is fortified by a network security group with multiple rules, effectively regulating traffic and enhancing overall network security.
 
 - service endpoint and delegation:
 Leveraging service endpoints and delegations ensures secure and direct connections to Azure services, enhancing performance and security.
