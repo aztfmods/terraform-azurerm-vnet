@@ -4,29 +4,12 @@ This terraform module simplifies the process of creating and managing virtual ne
 
 The below features are made available:
 
-- network security group on each subnet with multiple rules:
-
-> each subnet is fortified by a network security group with multiple rules, effectively regulating traffic and enhancing overall network security.
-
-- service endpoints and delegations:
-
-> leveraging service endpoints and delegations ensures secure and direct connections to azure services, enhancing performance and security
-
-- terratest for validation:
-
-> validation of different integrations is ensured by employing terratest, a robust Go library. This provides a reliable way to run tests against infrastructure code, thereby enhancing its overall robustness.
-
-- diagnostic logs integration:
-
-> the integration of azure's diagnostic logs brings valuable insights into operations, errors, and other telemetry data, enabling efficient and proactive troubleshooting.
-
-- ddos protection plan integration:
-
-> to enhance resilience against distributed denial of service attacks, azure's DDoS protection plan is integrated into the setup, bolstering defenses and ensuring service availability.
-
-- route table support with multiple user defined routes:
-
-> supporting route tables with multiple user defined routes allows for greater control and flexibility over network traffic paths, catering to diverse business needs.
+- network security group on each subnet with multiple rules
+- service endpoints and delegations
+- terratest for validation
+- diagnostic logs integration
+- ddos protection plan integration
+- route table support with multiple user defined routes
 
 The below examples shows the usage when consuming the module:
 
@@ -142,6 +125,42 @@ module "network" {
 }
 ```
 
+## Usage: routes
+
+```hcl
+module "network" {
+  source = "github.com/aztfmods/module.azurerm-vnet"
+
+  company = module.global.company
+  env     = module.global.env
+  region  = module.global.region
+
+  vnet = {
+    location      = module.global.groups.demo.location
+    resourcegroup = module.global.groups.demo.name
+    cidr          = ["10.18.0.0/16"]
+    subnets = {
+      sn1 = {
+        cidr = ["10.18.1.0/24"]
+        routes = {
+          udr1 = {
+            address_prefix = "Storage"
+            next_hop_type  = "Internet"
+          }
+          udr2 = {
+            address_prefix = "SqlManagement"
+            next_hop_type  = "Internet"
+          }
+        }
+      }
+      sn2 = {
+        cidr = ["10.18.2.0/24"]
+      }
+    }
+  }
+  depends_on = [module.global]
+}
+````
 ## Resources
 
 | Name | Type |
@@ -151,6 +170,8 @@ module "network" {
 | [azurerm_subnet](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet) | resource |
 | [azurerm_network_security_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_group) | resource |
 | [azurerm_subnet_network_security_group_association](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet_network_security_group_association) | resource |
+| [azurerm_route_table](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/route_table) | resource |
+| [azurerm_subnet_route_table_association](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet_route_table_association) | resource |
 
 ## Inputs
 
