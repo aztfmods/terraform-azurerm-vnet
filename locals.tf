@@ -13,6 +13,10 @@ locals {
       subnet_name                = "sn-${var.company}-${subnet_key}-${var.env}-${var.region}"
       nsg_name                   = "nsg-${var.company}-${subnet_key}-${var.env}-${var.region}"
       location                   = var.vnet.location
+      rt_name                    = "rt-${var.company}-${subnet_key}-${var.env}-${var.region}"
+      routes                     = try(subnet.routes, {})
+
     }
   ])
 }
+
