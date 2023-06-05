@@ -3,6 +3,10 @@ name: validate
 on:
   workflow_dispatch:
 
+env:
+  WORKLOAD: demo
+  ENVIRONMENT: dev
+
 jobs:
   build:
     name: validate
