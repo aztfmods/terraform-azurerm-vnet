@@ -5,20 +5,13 @@ on:
 
 jobs:
   build:
-    name: validate
-    runs-on: ubuntu-latest
-    env:
-      WORKLOAD: demo
-      ENVIRONMENT: dev
-    steps:
-      - name: Validate Module
-        uses: aztfmods/module-azurerm-global/.github/workflows/validate.yml@main
-        with:
-          workload: ${{ env.WORKLOAD }}
-          environment: ${{ env.ENVIRONMENT }}
-        secrets:
-          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+    uses: aztfmods/module-azurerm-global/.github/workflows/validate.yml@main
+    with:
+      workload: demo
+      environment: dev
+    secrets:
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
 
