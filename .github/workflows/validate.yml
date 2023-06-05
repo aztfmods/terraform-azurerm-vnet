@@ -3,16 +3,20 @@ name: validate
 on:
   workflow_dispatch:
 
-env:
-  WORKLOAD: demo
-  ENVIRONMENT: dev
-
 jobs:
   build:
     name: validate
+    runs-on: ubuntu-latest
+    env:
+      WORKLOAD: demo
+      ENVIRONMENT: dev
     uses: aztfmods/module-azurerm-global/.github/workflows/validate.yml@main
     secrets:
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+    with:
+      workload: ${{ env.WORKLOAD }}
+      environment: ${{ env.ENVIRONMENT }}
+
