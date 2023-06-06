@@ -15,10 +15,6 @@ func TestApplyNoError(t *testing.T) {
 		{Name: os.Getenv("TEST"), Path: "../examples/" + os.Getenv("TEST")},
 	}
 
-	//	tests := []shared.TestCase{
-	//	{Name: "simple", Path: "../examples/simple"},
-	//}
-
 	for _, test := range tests {
 		t.Run(test.Name, func(t *testing.T) {
 			terraformOptions := shared.GetTerraformOptions(test.Path)
