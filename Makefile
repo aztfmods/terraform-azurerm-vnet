@@ -1,4 +1,4 @@
-.PHONY: complete simple local
+.PHONY: complete test local
 
 export WORKLOAD
 export ENVIRONMENT
