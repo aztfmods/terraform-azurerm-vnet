@@ -28,8 +28,8 @@ module "network" {
   location_short = module.region.location_short
 
   vnet = {
-    location      = module.global.groups.demo.location
-    resourcegroup = module.global.groups.demo.name
+    location      = module.rg.group.location
+    resourcegroup = module.rg.group.name
     cidr          = ["10.18.0.0/16"]
     subnets = {
       sn1 = {
