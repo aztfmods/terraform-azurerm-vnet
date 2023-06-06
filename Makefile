@@ -2,13 +2,13 @@
 
 export WORKLOAD
 export ENVIRONMENT
-export TEST
+export USECASE
 
-complete:
+test_extended:
 	cd tests && go test -v -timeout 60m -run TestVirtualNetwork ./vnet_extended_test.go
 
 test:
-	cd tests && go test -v -timeout 60m -run TestApplyNoError/$(TEST) ./vnet_test.go
+	cd tests && go test -v -timeout 60m -run TestApplyNoError/$(USECASE) ./vnet_test.go
 
-local:
+test_local:
 	cd tests && env WORKLOAD=demo ENVIRONMENT=dev go test -v -timeout 60m -run TestVirtualNetwork ./vnet_extended_test.go

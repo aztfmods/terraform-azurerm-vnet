@@ -12,7 +12,7 @@ func TestApplyNoError(t *testing.T) {
 	t.Parallel()
 
 	tests := []shared.TestCase{
-		{Name: os.Getenv("TEST"), Path: "../examples/" + os.Getenv("TEST")},
+		{Name: os.Getenv("USECASE"), Path: "../examples/" + os.Getenv("USECASE")},
 	}
 
 	for _, test := range tests {
