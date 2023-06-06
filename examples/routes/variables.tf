@@ -1,0 +1,2 @@
+variable "workload" {}
+variable "environment" {}
