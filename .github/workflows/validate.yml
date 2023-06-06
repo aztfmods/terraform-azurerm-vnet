@@ -7,7 +7,7 @@ jobs:
   build:
     uses: aztfmods/module-azurerm-global/.github/workflows/validate.yml@main
     with:
-      type: simple
+      type: delegations
       workload: demo
       environment: dev
     secrets:
