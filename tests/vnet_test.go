@@ -1,17 +1,18 @@
 package main
 
 import (
+	"os"
 	"testing"
 
+	"github.com/aztfmods/module-azurerm-vnet/shared"
 	"github.com/gruntwork-io/terratest/modules/terraform"
-  "github.com/aztfmods/module-azurerm-vnet/shared"
 )
 
 func TestApplyNoError(t *testing.T) {
 	t.Parallel()
 
 	tests := []shared.TestCase{
-		{Name: "simple", Path: "../examples/simple"},
+		{Name: os.Getenv("TEST"), Path: "../examples/" + os.Getenv("TEST")},
 	}
 
 	for _, test := range tests {
@@ -25,5 +26,3 @@ func TestApplyNoError(t *testing.T) {
 		})
 	}
 }
-
-

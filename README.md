@@ -19,19 +19,20 @@ The below examples shows the usage when consuming the module:
 module "network" {
   source = "github.com/aztfmods/module-azurerm-vnet"
 
-  company = module.global.company
-  env     = module.global.env
-  region  = module.global.region
+  workload       = var.workload
+  environment    = var.environment
+  location_short = module.region.location_short
 
   vnet = {
-    location      = module.global.groups.demo.location
-    resourcegroup = module.global.groups.demo.name
+    location      = module.rg.group.location
+    resourcegroup = module.rg.group.name
     cidr          = ["10.18.0.0/16"]
     subnets = {
-      sn1 = { cidr = ["10.18.1.0/24"] }
+      sn1 = {
+        cidr = ["10.18.1.0/24"]
+      }
     }
   }
-  depends_on = [module.global]
 }
 ```
 
@@ -41,13 +42,13 @@ module "network" {
 module "network" {
   source = "github.com/aztfmods/module-azurerm-vnet"
 
-  company = module.global.company
-  env     = module.global.env
-  region  = module.global.region
+  workload       = var.workload
+  environment    = var.environment
+  location_short = module.region.location_short
 
   vnet = {
-    location      = module.global.groups.demo.location
-    resourcegroup = module.global.groups.demo.name
+    location      = module.rg.group.location
+    resourcegroup = module.rg.group.name
     cidr          = ["10.18.0.0/16"]
     subnets = {
       demo = {
@@ -59,7 +60,6 @@ module "network" {
       }
     }
   }
-  depends_on = [module.global]
 }
 ```
 
@@ -69,13 +69,13 @@ module "network" {
 module "network" {
   source = "github.com/aztfmods/module-azurerm-vnet"
 
-  company = module.global.company
-  env     = module.global.env
-  region  = module.global.region
+  workload       = var.workload
+  environment    = var.environment
+  location_short = module.region.location_short
 
   vnet = {
-    location      = module.global.groups.demo.location
-    resourcegroup = module.global.groups.demo.name
+    location      = module.rg.group.location
+    resourcegroup = module.rg.group.name
     cidr          = ["10.18.0.0/16"]
     subnets = {
       sn1 = {
@@ -93,7 +93,6 @@ module "network" {
       }
     }
   }
-  depends_on = [module.global]
 }
 ```
 
@@ -103,14 +102,14 @@ module "network" {
 module "network" {
   source = "github.com/aztfmods/module-azurerm-vnet"
 
-  company = module.global.company
-  env     = module.global.env
-  region  = module.global.region
+  workload       = var.workload
+  environment    = var.environment
+  location_short = module.region.location_short
 
   vnet = {
     cidr          = ["10.18.0.0/16"]
-    location      = module.global.groups.demo.location
-    resourcegroup = module.global.groups.demo.name
+    location      = module.rg.group.location
+    resourcegroup = module.rg.group.name
     subnets = {
       sn1 = {
         cidr = ["10.18.1.0/24"]
@@ -121,7 +120,6 @@ module "network" {
       }
     }
   }
-  depends_on = [module.global]
 }
 ```
 
@@ -129,15 +127,15 @@ module "network" {
 
 ```hcl
 module "network" {
-  source = "github.com/aztfmods/module.azurerm-vnet"
+  source = "github.com/aztfmods/module-azurerm-vnet"
 
-  company = module.global.company
-  env     = module.global.env
-  region  = module.global.region
+  workload       = var.workload
+  environment    = var.environment
+  location_short = module.region.location_short
 
   vnet = {
-    location      = module.global.groups.demo.location
-    resourcegroup = module.global.groups.demo.name
+    location      = module.rg.group.location
+    resourcegroup = module.rg.group.name
     cidr          = ["10.18.0.0/16"]
     subnets = {
       sn1 = {
@@ -158,7 +156,6 @@ module "network" {
       }
     }
   }
-  depends_on = [module.global]
 }
 ````
 ## Resources

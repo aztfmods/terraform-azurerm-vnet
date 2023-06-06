@@ -2,29 +2,35 @@ provider "azurerm" {
   features {}
 }
 
-module "global" {
-  source = "github.com/aztfmods/module-azurerm-global"
+module "region" {
+  source = "github.com/aztfmods/module-azurerm-regions"
 
-  company = "cn"
-  env     = "p"
-  region  = "weu"
+  workload    = var.workload
+  environment = var.environment
 
-  rgs = {
-    demo = { location = "westeurope" }
-  }
+  location = "westeurope"
+}
+
+module "rg" {
+  source = "github.com/aztfmods/module-azurerm-rg"
+
+  workload       = var.workload
+  environment    = var.environment
+  location_short = module.region.location_short
+  location       = module.region.location
 }
 
 module "network" {
   source = "../../"
 
-  company = module.global.company
-  env     = module.global.env
-  region  = module.global.region
+  workload       = var.workload
+  environment    = var.environment
+  location_short = module.region.location_short
 
   vnet = {
     cidr          = ["10.18.0.0/16"]
-    location      = module.global.groups.demo.location
-    resourcegroup = module.global.groups.demo.name
+    location      = module.rg.group.location
+    resourcegroup = module.rg.group.name
     subnets = {
       sn1 = {
         cidr = ["10.18.1.0/24"]
@@ -35,5 +41,4 @@ module "network" {
       }
     }
   }
-  depends_on = [module.global]
 }
