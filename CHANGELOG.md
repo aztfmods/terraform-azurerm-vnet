@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.12.0](https://github.com/aztfmods/module-azurerm-vnet/compare/v1.11.0...v1.12.0) (2023-06-09)
+
+
+### Features
+
+* enhanced error message handling in tests ([#94](https://github.com/aztfmods/module-azurerm-vnet/issues/94)) ([d16d29a](https://github.com/aztfmods/module-azurerm-vnet/commit/d16d29a133afcd1388d987a2321ec5f7d0bcebeb))
+
 ## [1.11.0](https://github.com/aztfmods/module-azurerm-vnet/compare/v1.10.0...v1.11.0) (2023-04-29)
 
 
