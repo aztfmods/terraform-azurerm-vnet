@@ -21,10 +21,14 @@ func TestVirtualNetwork(t *testing.T) {
 	terraform.InitAndApply(t, tfOpts)
 
 	vnet := terraform.OutputMap(t, tfOpts, "vnet")
-	virtualNetworkName := vnet["name"]
-	resourceGroupName := vnet["resource_group_name"]
+	virtualNetworkName, ok := vnet["name"]
+	require.True(t, ok, "Virtual network name not found in terraform output")
+
+	resourceGroupName, ok := vnet["resource_group_name"]
+	require.True(t, ok, "Resource group name not found in terraform output")
+
 	subscriptionID := terraform.Output(t, tfOpts, "subscriptionId")
-	require.NotEmpty(t, virtualNetworkName)
+	require.NotEmpty(t, subscriptionID, "Subscription ID not found in terraform output")
 
 	authorizer, err := azure.NewAuthorizer()
 	require.NoError(t, err)
@@ -63,10 +67,11 @@ func verifySubnetsExist(t *testing.T, subscriptionID string, resourceGroupName s
 	require.NoError(t, err)
 
 	subnetsOutput := terraform.OutputMap(t, tfOpts, "subnets")
-	require.NotEmpty(t, subnetsOutput)
+	require.NotEmpty(t, subnetsOutput, "Subnets output is empty")
 
 	for _, v := range *subnetsPage.Response().Value {
 		subnetName := *v.Name
+		require.NotEmpty(t, subnetName, "Subnet name not found in azure response")
 
 		require.Contains(
 			t,
