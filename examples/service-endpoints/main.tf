@@ -2,31 +2,23 @@ provider "azurerm" {
   features {}
 }
 
-module "region" {
-  source = "github.com/aztfmods/module-azurerm-regions"
-
-  location = "westeurope"
-}
-
 module "rg" {
   source = "github.com/aztfmods/module-azurerm-rg"
 
-  workload       = var.workload
-  environment    = var.environment
-  location_short = module.region.location_short
-  location       = module.region.location
+  workload    = var.workload
+  environment = var.environment
+  region      = "westeurope"
 }
 
 module "network" {
   source = "../../"
 
-  workload       = var.workload
-  environment    = var.environment
-  location_short = module.region.location_short
+  workload    = var.workload
+  environment = var.environment
 
   vnet = {
-    location      = module.rg.group.location
-    resourcegroup = module.rg.group.name
+    location      = module.rg.group.default.location
+    resourcegroup = module.rg.group.default.name
     cidr          = ["10.18.0.0/16"]
     subnets = {
       demo = {

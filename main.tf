@@ -11,7 +11,7 @@ resource "random_string" "random" {
 
 # virtual network
 resource "azurerm_virtual_network" "vnet" {
-  name                = "vnet-${var.workload}-${var.environment}-${var.location_short}-${random_string.random.result}"
+  name                = "vnet-${var.workload}-${var.environment}-${random_string.random.result}"
   resource_group_name = var.vnet.resourcegroup
   location            = var.vnet.location
   address_space       = var.vnet.cidr
