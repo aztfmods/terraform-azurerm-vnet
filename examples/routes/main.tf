@@ -5,9 +5,6 @@ provider "azurerm" {
 module "region" {
   source = "github.com/aztfmods/module-azurerm-regions"
 
-  workload    = var.workload
-  environment = var.environment
-
   location = "westeurope"
 }
 

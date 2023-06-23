@@ -15,7 +15,6 @@ locals {
       location                   = var.vnet.location
       rt_name                    = "rt-${var.workload}-${subnet_key}-${var.environment}-${var.location_short}"
       routes                     = try(subnet.routes, {})
-
     }
   ])
 }

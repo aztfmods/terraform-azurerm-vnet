@@ -1,8 +1,17 @@
 data "azurerm_subscription" "current" {}
 
+# generate random id
+resource "random_string" "random" {
+  length    = 3
+  min_lower = 3
+  numeric   = false
+  upper     = false
+  special   = false
+}
+
 # virtual network
 resource "azurerm_virtual_network" "vnet" {
-  name                = "vnet-${var.workload}-${var.environment}-${var.location_short}"
+  name                = "vnet-${var.workload}-${var.environment}-${var.location_short}-${random_string.random.result}"
   resource_group_name = var.vnet.resourcegroup
   location            = var.vnet.location
   address_space       = var.vnet.cidr
