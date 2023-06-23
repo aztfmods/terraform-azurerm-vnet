@@ -11,9 +11,9 @@ locals {
       delegations                = try(subnet.delegations, [])
       rules                      = try(subnet.rules, {})
       subnet_name                = "sn-${var.workload}-${subnet_key}-${var.environment}-${var.location_short}"
-      nsg_name                   = "nsg-${var.workload}-${subnet_key}-${var.environment}-${var.location_short}"
+      nsg_name                   = "nsg-${var.workload}-${subnet_key}-${var.environment}-${var.location_short}-${random_string.random.result}"
       location                   = var.vnet.location
-      rt_name                    = "rt-${var.workload}-${subnet_key}-${var.environment}-${var.location_short}"
+      rt_name                    = "rt-${var.workload}-${subnet_key}-${var.environment}-${var.location_short}-${random_string.random.result}}"
       routes                     = try(subnet.routes, {})
     }
   ])
