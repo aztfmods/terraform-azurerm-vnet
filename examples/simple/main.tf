@@ -5,9 +5,13 @@ provider "azurerm" {
 module "rg" {
   source = "github.com/aztfmods/module-azurerm-rg"
 
-  workload    = var.workload
   environment = var.environment
-  region      = "westeurope"
+
+  groups = {
+    demo = {
+      region = "westeurope"
+    }
+  }
 }
 
 module "network" {
@@ -17,8 +21,8 @@ module "network" {
   environment = var.environment
 
   vnet = {
-    location      = module.rg.group.default.location
-    resourcegroup = module.rg.group.default.name
+    location      = module.rg.groups.demo.location
+    resourcegroup = module.rg.groups.demo.name
     cidr          = ["10.18.0.0/16"]
     subnets = {
       sn1 = { cidr = ["10.18.1.0/24"] }
