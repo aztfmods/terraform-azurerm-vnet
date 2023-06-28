@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.13.0](https://github.com/aztfmods/module-azurerm-vnet/compare/v1.12.0...v1.13.0) (2023-06-28)
+
+
+### Features
+
+* **deps:** bump github.com/gruntwork-io/terratest in /tests ([#98](https://github.com/aztfmods/module-azurerm-vnet/issues/98)) ([77b9301](https://github.com/aztfmods/module-azurerm-vnet/commit/77b930185a0bdfe15acddd015e35b5a48e14a82f))
+* randomize naming abit ([#96](https://github.com/aztfmods/module-azurerm-vnet/issues/96)) ([f8d3ae7](https://github.com/aztfmods/module-azurerm-vnet/commit/f8d3ae7b0139362858412ff4d584ec4e9e7e0536))
+
 ## [1.12.0](https://github.com/aztfmods/module-azurerm-vnet/compare/v1.11.0...v1.12.0) (2023-06-09)
 
 
