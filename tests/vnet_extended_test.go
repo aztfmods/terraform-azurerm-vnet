@@ -9,7 +9,7 @@ import (
 	"github.com/gruntwork-io/terratest/modules/azure"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/require"
-	"github.com/aztfmods/module-azurerm-vnet/shared"
+	"github.com/aztfmods/terraform-azure-vnet/shared"
 )
 
 func TestVirtualNetwork(t *testing.T) {
