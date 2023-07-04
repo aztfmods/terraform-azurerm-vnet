@@ -41,19 +41,18 @@ module "network" {
 }
 ```
 
-## Usage: endpoints
+## [Usage: endpoints](examples/service-endpoints/main.tf)
 
 ```hcl
 module "network" {
-  source = "github.com/aztfmods/module-azurerm-vnet"
+  source = "github.com/aztfmods/terraform-azure-vnet?ref=v1.13.0"
 
-  workload       = var.workload
-  environment    = var.environment
-  location_short = module.region.location_short
+  workload    = var.workload
+  environment = var.environment
 
   vnet = {
-    location      = module.rg.group.location
-    resourcegroup = module.rg.group.name
+    location      = module.rg.groups.demo.location
+    resourcegroup = module.rg.groups.demo.name
     cidr          = ["10.18.0.0/16"]
     subnets = {
       demo = {
@@ -68,19 +67,18 @@ module "network" {
 }
 ```
 
-## Usage: delegations
+## [Usage: delegations](examples/delegations/main.tf)
 
 ```hcl
 module "network" {
-  source = "github.com/aztfmods/module-azurerm-vnet"
+  source = "github.com/aztfmods/terraform-azure-vnet?ref=v1.13.0"
 
-  workload       = var.workload
-  environment    = var.environment
-  location_short = module.region.location_short
+  workload    = var.workload
+  environment = var.environment
 
   vnet = {
-    location      = module.rg.group.location
-    resourcegroup = module.rg.group.name
+    location      = module.rg.groups.demo.location
+    resourcegroup = module.rg.group.demo.name
     cidr          = ["10.18.0.0/16"]
     subnets = {
       sn1 = {
@@ -96,25 +94,30 @@ module "network" {
           }
         }
       }
+      sn2 = {
+        cidr = ["10.18.2.0/24"]
+        delegations = {
+          web = { name = "Microsoft.Web/serverFarms" }
+        }
+      }
     }
   }
 }
 ```
 
-## Usage: nsg rules
+## [Usage: nsg rules](examples/nsg-rules/main.tf)
 
 ```hcl
 module "network" {
-  source = "github.com/aztfmods/module-azurerm-vnet"
+  source = "github.com/aztfmods/terraform-azure-vnet?ref=v1.13.0"
 
-  workload       = var.workload
-  environment    = var.environment
-  location_short = module.region.location_short
+  workload    = var.workload
+  environment = var.environment
 
   vnet = {
     cidr          = ["10.18.0.0/16"]
-    location      = module.rg.group.location
-    resourcegroup = module.rg.group.name
+    location      = module.rg.groups.demo.location
+    resourcegroup = module.rg.groups.demo.name
     subnets = {
       sn1 = {
         cidr = ["10.18.1.0/24"]
@@ -128,19 +131,18 @@ module "network" {
 }
 ```
 
-## Usage: routes
+## [Usage: routes](examples/routes/main.tf)
 
 ```hcl
 module "network" {
-  source = "github.com/aztfmods/module-azurerm-vnet"
+  source = "github.com/aztfmods/terraform-azure-vnet?ref=v1.13.0"
 
-  workload       = var.workload
-  environment    = var.environment
-  location_short = module.region.location_short
+  workload    = var.workload
+  environment = var.environment
 
   vnet = {
-    location      = module.rg.group.location
-    resourcegroup = module.rg.group.name
+    location      = module.rg.groups.demo.location
+    resourcegroup = module.rg.groups.demo.name
     cidr          = ["10.18.0.0/16"]
     subnets = {
       sn1 = {
@@ -155,9 +157,6 @@ module "network" {
             next_hop_type  = "Internet"
           }
         }
-      }
-      sn2 = {
-        cidr = ["10.18.2.0/24"]
       }
     }
   }
