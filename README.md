@@ -12,7 +12,7 @@ A key objective is to employ keys and values within the object that align with t
 
 ## Features
 
-- an individual network security group for each subnet, encompassing multiple rules, with the ability to handle multiple rules
+- an individual network security group for each subnet, with the ability to handle multiple rules
 - support for multiple service endpoints and delegations, including actions
 - utilization of terratest for robust validation.
 - route table support with multiple user defined routes
