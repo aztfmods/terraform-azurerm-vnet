@@ -11,6 +11,10 @@ This terraform module simplifies the process of creating and managing virtual ne
 - ddos protection plan integration
 - route table support with multiple user defined routes
 
+The below examples shows the usage when consuming the module:
+
+## Goals
+
 ## Usage: simple
 
 ```hcl
