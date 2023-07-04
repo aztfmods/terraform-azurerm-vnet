@@ -194,16 +194,19 @@ module "network" {
 
 ## Testing
 
-This GitHub repository is equipped with a Makefile designed to run a series of tests, each of which corresponds to different example use cases provided within the repository. The testing process is crafted to assess and validate various configurations, contributing to the stability and reliability of the module.
+This GitHub repository is equipped with a Makefile designed to run a series of tests, each of which corresponds to different example use cases provided within the repository.
+
+The testing process is crafted to assess and validate various configurations, contributing to the stability and reliability of the module.
+
 Before running these tests, ensure that both Go and Terraform are installed on your system.
 
-This [Makefile](./Makefile) defines three different types of tests: test_local, test_extended, and test, each having a unique role and purpose:
+This [Makefile](./Makefile) defines three different types of tests:
 
-```test_local```: This test is ideal for local deployments, as it allows overriding the workload and environment values. It performs additional tests. The command for executing this test is ```make test_local```.
+test_local: This test is ideal for local deployments, as it allows overriding the workload and environment values. It performs additional tests. The command for executing this test is ```make test_local```.
 
-```test_extended```: This test is utilized for additional checks in the github workflow, making it the default test for the module.
+test_extended: This test is utilized for additional checks in the github workflow, making it the default test for the module.
 
-```test```: This test is designed to accommodate specific use cases. By providing a specific test name in the gitHub workflow, the test executes that particular deployment test and overrides the default extended one.
+test: This test is designed to accommodate specific use cases. By providing a specific test name in the gitHub workflow, the test executes that particular deployment test and overrides the default extended one.
 
 Each of these tests contribute to the robustness and resilience of the module, helping to ensure that it performs consistently and accurately under various scenarios and configurations.
 
