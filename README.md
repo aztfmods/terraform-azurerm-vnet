@@ -201,7 +201,7 @@ Before running these tests, ensure that both Go and Terraform are installed on y
 
 This [Makefile](./Makefile) defines three different types of tests:
 
-**test_local**: This test is ideal for local deployments, as it allows overriding the workload and environment values. It performs additional tests. The command for executing this test is ```make test_local```.
+[test_local](Makefile#L13): This test is ideal for local deployments, as it allows overriding the workload and environment values. It performs additional tests. The command for executing this test is ```make test_local```.
 
 **test_extended**: This test is utilized for additional checks in the github workflow, making it the default test for the module.
 
