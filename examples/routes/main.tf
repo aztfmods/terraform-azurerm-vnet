@@ -4,7 +4,6 @@ provider "azurerm" {
 
 module "rg" {
   source = "github.com/aztfmods/terraform-azure-rg"
-  version = "~> 1.0"
 
   environment = var.environment
 
@@ -16,8 +15,7 @@ module "rg" {
 }
 
 module "network" {
-  source = "github.com/aztfmods/terraform-azure-vnet"
-  version = "~> 1.0"
+  source = "github.com/aztfmods/terraform-azure-vnet?ref=v1.13.0"
 
   workload    = var.workload
   environment = var.environment
