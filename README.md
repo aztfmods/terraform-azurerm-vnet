@@ -198,7 +198,9 @@ The GitHub repository utilizes a Makefile to conduct tests to evaluate and valid
 
 Before initiating the tests, please ensure that both Go and Terraform are properly installed on your system.
 
-The [Makefile](Makefile) incorporates three distinct test variations. The first one, a local deployment test, is designed for local deployments and allows the overriding of workload and environment values. It includes additional checks and can be initiated using the command ```make test_local```.
+The [Makefile](Makefile) incorporates three distinct test variations. The first one, a local deployment test, is designed for local deployments and allows the overriding of workload and environment values.
+
+It includes additional checks and can be initiated using the command ```make test_local```.
 
 The second variation is an extended test. This test performs additional validations and serves as the default test for the module within the GitHub workflow.
 
