@@ -3,7 +3,7 @@ provider "azurerm" {
 }
 
 module "logging" {
-  source = "github.com/aztfmods/terraform-azure-law?1.6.0"
+  source = "github.com/aztfmods/terraform-azure-law?ref=1.6.0"
 
   company = module.global.company
   env     = module.global.env
