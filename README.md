@@ -201,7 +201,7 @@ Before running these tests, ensure that both Go and Terraform are installed on y
 
 The Makefile includes three distinct test variations:
 
-[test_local](Makefile#L13)\\
+[test_local](Makefile#L13)<br>
 This test is ideal for local deployments, as it allows overriding the workload and environment values. It performs additional tests. The command for executing this test is ```make test_local```.
 
 [test_extended](Makefile#L7)\\
