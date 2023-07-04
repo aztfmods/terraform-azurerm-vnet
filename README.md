@@ -19,7 +19,7 @@ A key objective is to employ keys and values within the object that align with t
 
 The below examples shows the usage when consuming the module:
 
-## [Usage: simple](examples/simple/main.tf)
+## Usage: simple
 
 ```hcl
 module "network" {
@@ -41,7 +41,7 @@ module "network" {
 }
 ```
 
-## [Usage: endpoints](examples/service-endpoints/main.tf)
+## Usage: endpoints
 
 ```hcl
 module "network" {
@@ -67,7 +67,7 @@ module "network" {
 }
 ```
 
-## [Usage: delegations](examples/delegations/main.tf)
+## Usage: delegations
 
 ```hcl
 module "network" {
@@ -105,7 +105,7 @@ module "network" {
 }
 ```
 
-## [Usage: nsg rules](examples/nsg-rules/main.tf)
+## Usage: nsg rules
 
 ```hcl
 module "network" {
@@ -131,7 +131,7 @@ module "network" {
 }
 ```
 
-## [Usage: routes](examples/routes/main.tf)
+## Usage: routes
 
 ```hcl
 module "network" {
@@ -179,9 +179,8 @@ module "network" {
 | Name | Description | Type | Required |
 | :-- | :-- | :-- | :-- |
 | `vnets` | describes vnet related configuration | object | yes |
-| `company` | contains the company name used, for naming convention | string | yes |
-| `region` | contains the shortname of the region, used for naming convention | string | yes |
-| `env` | contains shortname of the environment used for naming convention | string | yes |
+| `workload` | contains the workload name used, for naming convention | string | yes |
+| `environment` | contains shortname of the environment used for naming convention | string | yes |
 
 ## Outputs
 
