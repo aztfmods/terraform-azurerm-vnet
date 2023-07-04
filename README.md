@@ -15,25 +15,22 @@ A key objective is to employ keys and values within the object that align with t
 - network security group on each subnet with multiple rules
 - service endpoints and delegations
 - terratest for validation
-- diagnostic logs integration
-- ddos protection plan integration
 - route table support with multiple user defined routes
 
 The below examples shows the usage when consuming the module:
 
-## Usage: simple
+## Usage: [simple](examples/simple/main.tf)
 
 ```hcl
 module "network" {
-  source = "github.com/aztfmods/module-azurerm-vnet"
+  source = "github.com/aztfmods/terraform-azure-vnet?ref=v1.13.0"
 
-  workload       = var.workload
-  environment    = var.environment
-  location_short = module.region.location_short
+  workload    = var.workload
+  environment = var.environment
 
   vnet = {
-    location      = module.rg.group.location
-    resourcegroup = module.rg.group.name
+    location      = module.rg.groups.demo.location
+    resourcegroup = module.rg.groups.demo.name
     cidr          = ["10.18.0.0/16"]
     subnets = {
       sn1 = {
