@@ -1,2 +1,7 @@
-variable "workload" {}
-variable "environment" {}
+variable "workload" {
+  type = string
+}
+
+variable "environment" {
+  type = string
+}

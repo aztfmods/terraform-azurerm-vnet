@@ -1,0 +1,12 @@
+name: "linting"
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - synchronize
+
+jobs:
+  checks:
+    uses: aztfmods/workflows-shared/.github/workflows/linting.yml@main
