@@ -19,7 +19,7 @@ A key objective is to employ keys and values within the object that align with t
 
 The below examples shows the usage when consuming the module:
 
-## Usage: [simple](examples/simple/main.tf)
+## [Usage: simple](examples/simple/main.tf)
 
 ```hcl
 module "network" {
