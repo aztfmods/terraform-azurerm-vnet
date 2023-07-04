@@ -200,9 +200,9 @@ Before initiating the tests, please ensure that both Go and Terraform are proper
 
 The [Makefile](Makefile) incorporates three distinct test variations. The first one, a local deployment test, is designed for local deployments and allows the overriding of workload and environment values. It includes additional checks and can be initiated using the command ```make test_local```.
 
-The second variation is an extended test. This test performs additional validations and serves as the default test for the module within the GitHub workflow.
+The second variation is an extended test. This test performs additional validations and serves as the default test for the module within the gith wub workflow.
 
-The third variation allows for specific deployment tests. By providing a unique test name in the GitHub workflow, it overrides the default extended test, executing the specific deployment test instead.
+The third variation allows for specific deployment tests. By providing a unique test name in the github workflow, it overrides the default extended test, executing the specific deployment test instead.
 
 Each of these tests contributes to the robustness and resilience of the module. They ensure the module performs consistently and accurately under different scenarios and configurations.
 
