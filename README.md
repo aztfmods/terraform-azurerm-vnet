@@ -1,8 +1,10 @@
 # Virtual Network
 
+## Description
+
 This terraform module simplifies the process of creating and managing virtual network resources on azure with configurable options for network topology, subnets, security groups, and more to ensure a secure and efficient environment for resource communication in the cloud.
 
-The below features are made available:
+## Features
 
 - network security group on each subnet with multiple rules
 - service endpoints and delegations
@@ -10,8 +12,6 @@ The below features are made available:
 - diagnostic logs integration
 - ddos protection plan integration
 - route table support with multiple user defined routes
-
-The below examples shows the usage when consuming the module:
 
 ## Usage: simple
 
