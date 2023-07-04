@@ -2,6 +2,12 @@
 
 This terraform module simplifies the process of creating and managing virtual network resources on azure with configurable options for network topology, subnets, security groups, and more to ensure a secure and efficient environment for resource communication in the cloud.
 
+## Goals
+
+The main objective is to create a more logic data structure, achieved by combining and grouping related resources together in a complex object.
+
+The structure of the module promotes reusability. It's intended to be a repeatable component, simplifying the process of building diverse workloads and platform accelerators consistently.
+
 ## Features
 
 - network security group on each subnet with multiple rules
@@ -12,10 +18,6 @@ This terraform module simplifies the process of creating and managing virtual ne
 - route table support with multiple user defined routes
 
 The below examples shows the usage when consuming the module:
-
-## Goals
-
-The main objective is to create a more logic data structure by combining and grouping related resources together in a complex object. The design of the module underscores its reusability, enabling it to serve as a valuable buildi wng block for the efficient and consistent creation of diverse workloads and platform accelerators.
 
 ## Usage: simple
 
