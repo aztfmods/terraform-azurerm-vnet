@@ -8,6 +8,8 @@ The main objective is to create a more logic data structure, achieved by combini
 
 The structure of the module promotes reusability. It's intended to be a repeatable component, simplifying the process of building diverse workloads and platform accelerators consistently.
 
+Most of the time, it starts with a singular resource at top level. Yet, by harnessing the power of keys and values within the object in alignment with the REST API's capabilities, the module allows for multiple iterations and expansions throughout its use.
+
 ## Features
 
 - network security group on each subnet with multiple rules
