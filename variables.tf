@@ -1,6 +1,5 @@
 variable "vnet" {
-  type = map(object({
-  }))
+  type = any
 }
 
 variable "workload" {
