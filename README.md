@@ -197,7 +197,6 @@ module "network" {
 This GitHub repository is equipped with a Makefile designed to run a series of tests, each of which corresponds to different example use cases provided within the repository.
 
 The testing process is crafted to assess and validate various configurations, contributing to the stability and reliability of the module.
-
 Before running these tests, ensure that both Go and Terraform are installed on your system.
 
 This [Makefile](./Makefile) defines three different types of tests:
