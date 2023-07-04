@@ -3,7 +3,7 @@ provider "azurerm" {
 }
 
 module "rg" {
-  source = "github.com/aztfmods/terraform-azure-rg"
+  source = "github.com/aztfmods/terraform-azure-rg?ref=v1.0.0"
 
   environment = var.environment
 
