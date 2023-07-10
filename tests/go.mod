@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/Azure/azure-sdk-for-go v51.0.0+incompatible
 	github.com/Azure/go-autorest/autorest v0.11.29
-	github.com/gruntwork-io/terratest v0.43.6
+	github.com/gruntwork-io/terratest v0.43.8
 	github.com/stretchr/testify v1.8.4
 )
 
