@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.14.0](https://github.com/aztfmods/terraform-azure-vnet/compare/v1.13.0...v1.14.0) (2023-07-11)
+
+
+### Features
+
+* **deps:** bump github.com/gruntwork-io/terratest from 0.43.6 to 0.43.8 in /tests ([#102](https://github.com/aztfmods/terraform-azure-vnet/issues/102)) ([45a4011](https://github.com/aztfmods/terraform-azure-vnet/commit/45a401131e0220fe9f335da9c55ef8b2e72af54f))
+* **deps:** bump google.golang.org/grpc from 1.51.0 to 1.53.0 in /tests ([#101](https://github.com/aztfmods/terraform-azure-vnet/issues/101)) ([aa6b0e9](https://github.com/aztfmods/terraform-azure-vnet/commit/aa6b0e9d49c146aebb0feba709ac1faac9e75775))
+* fix linting issues ([#99](https://github.com/aztfmods/terraform-azure-vnet/issues/99)) ([209f6c5](https://github.com/aztfmods/terraform-azure-vnet/commit/209f6c592636f1a8b7830b294eba5894c35cd3d7))
+* update documentation ([a6d1c51](https://github.com/aztfmods/terraform-azure-vnet/commit/a6d1c512cabbf66ecb28d4fe38db9f8c5974034c))
+* update documentation ([a4d5139](https://github.com/aztfmods/terraform-azure-vnet/commit/a4d5139f7a52b61df7cb5d1cb5570428c1ddea49))
+* update documentation ([4223277](https://github.com/aztfmods/terraform-azure-vnet/commit/422327792a562971793fd51cc75a503a258b0744))
+* update documentation ([59ba47b](https://github.com/aztfmods/terraform-azure-vnet/commit/59ba47bd201282b60474d13e6239bdf847dec90f))
+
 ## [1.13.0](https://github.com/aztfmods/module-azurerm-vnet/compare/v1.12.0...v1.13.0) (2023-06-28)
 
 
