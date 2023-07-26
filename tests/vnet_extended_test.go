@@ -16,7 +16,6 @@ func TestVirtualNetwork(t *testing.T) {
 	t.Run("VerifyVirtualNetworkAndSubnets", func(t *testing.T) {
 		t.Parallel()
 
-		// Initialize Terraform and apply the configuration
 		tfOpts := shared.GetTerraformOptions("../examples/complete")
 		defer shared.Cleanup(t, tfOpts)
 		terraform.InitAndApply(t, tfOpts)
