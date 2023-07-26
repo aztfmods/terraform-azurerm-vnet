@@ -6,44 +6,53 @@ import (
 
 	"github.com/Azure/azure-sdk-for-go/services/network/mgmt/2020-03-01/network"
 	"github.com/Azure/go-autorest/autorest"
+	"github.com/aztfmods/terraform-azure-vnet/shared"
 	"github.com/gruntwork-io/terratest/modules/azure"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/require"
-	"github.com/aztfmods/terraform-azure-vnet/shared"
 )
 
 func TestVirtualNetwork(t *testing.T) {
-	t.Parallel()
+	t.Run("VerifyVirtualNetworkAndSubnets", func(t *testing.T) {
+		t.Parallel()
 
-	tfOpts := shared.GetTerraformOptions("../examples/complete")
+		// Initialize Terraform and apply the configuration
+		tfOpts := shared.GetTerraformOptions("../examples/complete")
+		defer shared.Cleanup(t, tfOpts)
+		terraform.InitAndApply(t, tfOpts)
 
-	defer shared.Cleanup(t, tfOpts)
-	terraform.InitAndApply(t, tfOpts)
+		vnet := terraform.OutputMap(t, tfOpts, "vnet")
+		virtualNetworkName, ok := vnet["name"]
+		require.True(t, ok, "Virtual network name not found in terraform output")
 
-	vnet := terraform.OutputMap(t, tfOpts, "vnet")
-	virtualNetworkName, ok := vnet["name"]
-	require.True(t, ok, "Virtual network name not found in terraform output")
+		resourceGroupName, ok := vnet["resource_group_name"]
+		require.True(t, ok, "Resource group name not found in terraform output")
 
-	resourceGroupName, ok := vnet["resource_group_name"]
-	require.True(t, ok, "Resource group name not found in terraform output")
+		subscriptionID := terraform.Output(t, tfOpts, "subscriptionId")
+		require.NotEmpty(t, subscriptionID, "Subscription ID not found in terraform output")
 
-	subscriptionID := terraform.Output(t, tfOpts, "subscriptionId")
-	require.NotEmpty(t, subscriptionID, "Subscription ID not found in terraform output")
+		authorizer, err := azure.NewAuthorizer()
+		require.NoError(t, err)
 
-	authorizer, err := azure.NewAuthorizer()
-	require.NoError(t, err)
+		virtualNetworkClient := network.NewVirtualNetworksClient(subscriptionID)
+		virtualNetworkClient.Authorizer = *authorizer
 
-	virtualNetworkClient := network.NewVirtualNetworksClient(subscriptionID)
-	virtualNetworkClient.Authorizer = *authorizer
+		virtualNetwork, err := virtualNetworkClient.Get(context.Background(), resourceGroupName, virtualNetworkName, "")
+		require.NoError(t, err)
 
-	virtualNetwork, err := virtualNetworkClient.Get(context.Background(), resourceGroupName, virtualNetworkName, "")
-	require.NoError(t, err)
+		t.Run("VerifyVirtualNetwork", func(t *testing.T) {
+			verifyVirtualNetwork(t, virtualNetworkName, &virtualNetwork)
+		})
 
-	verifyVirtualNetwork(t, virtualNetworkName, &virtualNetwork)
-	verifySubnetsExist(t, subscriptionID, resourceGroupName, virtualNetworkName, tfOpts, *authorizer)
+		t.Run("VerifySubnetsExist", func(t *testing.T) {
+			verifySubnetsExist(t, subscriptionID, resourceGroupName, virtualNetworkName, tfOpts, *authorizer)
+		})
+	})
 }
 
 func verifyVirtualNetwork(t *testing.T, virtualNetworkName string, virtualNetwork *network.VirtualNetwork) {
+	t.Helper()
+
 	require.Equal(
 		t,
 		virtualNetworkName,
@@ -60,6 +69,8 @@ func verifyVirtualNetwork(t *testing.T, virtualNetworkName string, virtualNetwor
 }
 
 func verifySubnetsExist(t *testing.T, subscriptionID string, resourceGroupName string, virtualNetworkName string, tfOpts *terraform.Options, authorizer autorest.Authorizer) {
+	t.Helper()
+
 	subnetClient := network.NewSubnetsClient(subscriptionID)
 	subnetClient.Authorizer = authorizer
 
@@ -88,4 +99,3 @@ func verifySubnetsExist(t *testing.T, subscriptionID string, resourceGroupName s
 		)
 	}
 }
-
