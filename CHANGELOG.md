@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.15.0](https://github.com/aztfmods/terraform-azure-vnet/compare/v1.14.0...v1.15.0) (2023-07-26)
+
+
+### Features
+
+* **deps:** Bump github.com/gruntwork-io/terratest from 0.43.8 to 0.43.9 in /tests ([#103](https://github.com/aztfmods/terraform-azure-vnet/issues/103)) ([2dcee93](https://github.com/aztfmods/terraform-azure-vnet/commit/2dcee93250f5cd95e7e18e57924aafc2c5d88d55))
+* grouped related tests together with t.run and specified test helper functions ([#104](https://github.com/aztfmods/terraform-azure-vnet/issues/104)) ([30d341c](https://github.com/aztfmods/terraform-azure-vnet/commit/30d341cc882ba388f6fb1dc65426710495b4acf8))
+
 ## [1.14.0](https://github.com/aztfmods/terraform-azure-vnet/compare/v1.13.0...v1.14.0) (2023-07-11)
 
 
