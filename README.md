@@ -42,8 +42,6 @@ module "network" {
 }
 ```
 
-
-
 ## Usage: simple2
 
 ```hcl
@@ -88,7 +86,7 @@ module "network" {
 
 ## Outputs
 
-| Name | Description |
+| Name | Descriptions |
 | :-- | :-- |
 | `vnet` | contains all vnet configuration |
 | `subnets` | contains all subnets configuration |
