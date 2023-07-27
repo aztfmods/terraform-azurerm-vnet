@@ -80,7 +80,7 @@ module "network" {
 
 ## Inputs
 
-| Names | Description | Type | Required |
+| Name | Description | Type | Required |
 | :-- | :-- | :-- | :-- |
 | `vnets` | describes vnet related configuration | object | yes |
 | `workload` | contains the workload name used, for naming convention | string | yes |
