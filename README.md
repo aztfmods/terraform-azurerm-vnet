@@ -42,9 +42,31 @@ module "network" {
 }
 ```
 
+## Usage: simple
+
+```hcl
+module "network" {
+  source = "github.com/aztfmods/terraform-azure-vnet?ref=v1.13.0"
+
+  workload    = var.workload
+  environment = var.environment
+
+  vnet = {
+    location      = module.rg.groups.demo.location
+    resourcegroup = module.rg.groups.demo.name
+    cidr          = ["10.18.0.0/16"]
+    subnets = {
+      sn1 = {
+        cidr = ["10.18.1.0/24"]
+      }
+    }
+  }
+}
+```
+
 ## Resources
 
-| Name | Type |
+| Type |
 | :-- | :-- |
 | [azurerm_virtual_network](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network) | resource |
 | [azurerm_virtual_network_dns_servers](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network_dns_servers) | resource |
