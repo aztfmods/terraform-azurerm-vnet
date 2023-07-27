@@ -86,7 +86,7 @@ module "network" {
 
 ## Outputs
 
-| Name | Descriptions |
+| Name | Description |
 | :-- | :-- |
 | `vnet` | contains all vnet configuration |
 | `subnets` | contains all subnets configuration |
