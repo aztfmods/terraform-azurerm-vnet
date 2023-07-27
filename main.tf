@@ -60,6 +60,7 @@ resource "azurerm_subnet" "subnets" {
   }
 }
 
+
 # nsg's
 resource "azurerm_network_security_group" "nsg" {
   for_each = {
