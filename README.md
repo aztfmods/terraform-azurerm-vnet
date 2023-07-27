@@ -44,7 +44,7 @@ module "network" {
 
 ## Resources
 
-| Name | Typse |
+| Name | Type |
 | :-- | :-- |
 | [azurerm_virtual_network](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network) | resource |
 | [azurerm_virtual_network_dns_servers](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network_dns_servers) | resource |
