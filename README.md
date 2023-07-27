@@ -2,7 +2,7 @@
 
 This terraform module simplifies the process of creating and managing virtual network resources on azure with configurable options for network topology, subnets, security groups, and more to ensure a secure and efficient environment for resource communication in the cloud.
 
-## Goals
+## Goalss
 
 The main objective is to create a more logic data structure, achieved by combining and grouping related resources together in a complex object.
 
