@@ -207,7 +207,7 @@ Each of these tests contributes to the robustness and resilience of the module. 
 
 ## Authors
 
-Module is maintained by [Dennis Kool](https://github.com/dkoolll).
+Module is maintained by [Dennis Kool](https://github.com/dkooll).
 
 ## License
 
