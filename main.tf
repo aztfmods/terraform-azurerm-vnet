@@ -9,6 +9,7 @@ resource "random_string" "random" {
   special   = false
 }
 
+
 # virtual network
 resource "azurerm_virtual_network" "vnet" {
   name                = "vnet-${var.workload}-${var.environment}-${random_string.random.result}"
