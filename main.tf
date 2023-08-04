@@ -16,6 +16,15 @@ resource "azurerm_virtual_network" "vnet" {
   location            = var.vnet.location
   address_space       = var.vnet.cidr
 
+  # not available yet in all regions
+  dynamic "encryption" {
+    for_each = try(var.vnet.encryption_mode, null) != null ? { "default" = var.vnet.encryption_mode } : {}
+
+    content {
+      enforcement = try(var.vnet.encryption_mode, "AllowUnencrypted")
+    }
+  }
+
   # dynamic "ddos_protection_plan" {
   #   for_each = try(each.value.ddos_plan.enable, false) == true ? range(1) : range(0)
   #   iterator = v
