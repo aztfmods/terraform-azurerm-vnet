@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.16.0](https://github.com/aztfmods/terraform-azure-vnet/compare/v1.15.0...v1.16.0) (2023-08-04)
+
+
+### Features
+
+* add encryption support ([#109](https://github.com/aztfmods/terraform-azure-vnet/issues/109)) ([f6671fb](https://github.com/aztfmods/terraform-azure-vnet/commit/f6671fb965d6a3e70ac7eaeb21cb5e7cd81a3912))
+* **deps:** Bump github.com/gruntwork-io/terratest from 0.43.9 to 0.43.11 in /tests ([#107](https://github.com/aztfmods/terraform-azure-vnet/issues/107)) ([43ab200](https://github.com/aztfmods/terraform-azure-vnet/commit/43ab200a5155e765f2d04171fcb5fc9abf2cb199))
+
 ## [1.15.0](https://github.com/aztfmods/terraform-azure-vnet/compare/v1.14.0...v1.15.0) (2023-07-26)
 
 
