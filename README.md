@@ -10,6 +10,8 @@ The structure of the module promotes reusability. It's intended to be a repeatab
 
 A primary goal is to utilize keys and values in the object that correspond to the REST API's structure. This enables us to carry out iterations, increasing its practical value as time goes on.
 
+A last key goal is to separate logic from configuration in the module, thereby enhancing its scalability, ease of customization, and manageability.
+
 ## Features
 
 - an individual network security group for each subnet, with the ability to handle multiple rules
@@ -215,5 +217,6 @@ MIT Licensed. See [LICENSE](https://github.com/aztfmods/terraform-azure-vnet/blo
 
 ## Reference
 
-- [Virtual Network Documentation - Microsoft docs](https://learn.microsoft.com/en-us/azure/virtual-network/)
-- [Virtual Network Rest Api - Microsoft docs](https://learn.microsoft.com/en-us/rest/api/virtual-network/)
+- [Documentation](https://learn.microsoft.com/en-us/azure/virtual-network/)
+- [Rest Api](https://learn.microsoft.com/en-us/rest/api/virtual-network/)
+- [Rest Api Specs](https://github.com/Azure/azure-rest-api-specs/blob/main/specification/network/resource-manager/Microsoft.Network/stable/2023-04-01/virtualNetwork.json)
