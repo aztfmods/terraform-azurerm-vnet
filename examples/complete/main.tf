@@ -16,7 +16,7 @@ module "rg" {
 }
 
 module "network" {
-  source = "github.com/aztfmods/terraform-azure-vnet?ref=v1.13.0"
+  source = "../../"
 
   workload    = var.workload
   environment = var.environment
