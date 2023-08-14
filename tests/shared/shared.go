@@ -25,7 +25,7 @@ func GetTerraformOptions(terraformDir string) *terraform.Options {
 	return &terraform.Options{
 		TerraformDir: terraformDir,
 		NoColor:      true,
-		Parallelism:  20,
+		Parallelism:  2,
 		Vars: map[string]interface{}{
 			"workload":    workload,
 			"environment": environment,
@@ -34,7 +34,7 @@ func GetTerraformOptions(terraformDir string) *terraform.Options {
 }
 
 func Cleanup(t *testing.T, tfOpts *terraform.Options) {
-	terraform.Destroy(t, tfOpts)
+	SequentialDestroy(t, tfOpts)
 	CleanupFiles(t, tfOpts.TerraformDir)
 }
 
@@ -53,4 +53,9 @@ func CleanupFiles(t *testing.T, dir string) {
 			}
 		}
 	}
+}
+
+func SequentialDestroy(t *testing.T, tfOpts *terraform.Options) {
+	tfOpts.Parallelism = 1
+	terraform.Destroy(t, tfOpts)
 }
