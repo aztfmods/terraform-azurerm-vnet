@@ -67,6 +67,9 @@ resource "azurerm_subnet" "subnets" {
       }
     }
   }
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 # nsg's
@@ -132,6 +135,7 @@ resource "azurerm_route_table" "rt" {
       next_hop_in_ip_address = lookup(route.value, "next_hop_in_ip_address", null)
     }
   }
+  depends_on = [azurerm_virtual_network_dns_servers.dns]
 }
 
 # route table associations
