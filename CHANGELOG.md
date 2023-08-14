@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.17.0](https://github.com/aztfmods/terraform-azure-vnet/compare/v1.16.0...v1.17.0) (2023-08-14)
+
+
+### Features
+
+* removed deprecated sdk and tests are now using the new one ([#111](https://github.com/aztfmods/terraform-azure-vnet/issues/111)) ([9a36105](https://github.com/aztfmods/terraform-azure-vnet/commit/9a3610519ea96a999fd48aee7f3956bc86f082b4))
+
+
+### Bug Fixes
+
+* fix in use networkwork security group can not be deleted using lifecycle property create before destroy on subnets ([#115](https://github.com/aztfmods/terraform-azure-vnet/issues/115)) ([f8a1053](https://github.com/aztfmods/terraform-azure-vnet/commit/f8a10536ba2b5edb6121baf9f75d9b23b3e89f81))
+
 ## [1.16.0](https://github.com/aztfmods/terraform-azure-vnet/compare/v1.15.0...v1.16.0) (2023-08-04)
 
 
