@@ -2,11 +2,6 @@ variable "vnet" {
   type = any
 }
 
-variable "workload" {
-  type = string
+variable "naming" {
+  type = map(string)
 }
-
-variable "environment" {
-  type = string
-}
-
