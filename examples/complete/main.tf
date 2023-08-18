@@ -28,8 +28,8 @@ module "network" {
     name          = module.naming.virtual_network.name
     location      = module.rg.groups.demo.location
     resourcegroup = module.rg.groups.demo.name
+    cidr          = ["10.18.0.0/16"]
 
-    cidr = ["10.18.0.0/16"]
     subnets = {
       sn1 = {
         cidr = ["10.18.1.0/24"]

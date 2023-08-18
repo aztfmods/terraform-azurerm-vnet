@@ -20,7 +20,7 @@ module "rg" {
 }
 
 module "network" {
-  source = "github.com/aztfmods/terraform-azure-vnet?ref=v1.13.0"
+  source = "github.com/aztfmods/terraform-azure-vnet?ref=v1.18.0"
 
   naming = local.naming
 
@@ -29,6 +29,7 @@ module "network" {
     location      = module.rg.groups.demo.location
     resourcegroup = module.rg.groups.demo.name
     cidr          = ["10.18.0.0/16"]
+
     subnets = {
       demo = {
         cidr = ["10.18.3.0/24"]
