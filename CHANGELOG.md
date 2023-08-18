@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.18.0](https://github.com/aztfmods/terraform-azure-vnet/compare/v1.17.0...v1.18.0) (2023-08-18)
+
+
+### Features
+
+* **deps:** bump github.com/gruntwork-io/terratest from 0.43.11 to 0.43.12 in /tests ([#116](https://github.com/aztfmods/terraform-azure-vnet/issues/116)) ([f458f6f](https://github.com/aztfmods/terraform-azure-vnet/commit/f458f6fdeb3b40fd93296bfe714f521da157fae4))
+* improved naming convention ([#117](https://github.com/aztfmods/terraform-azure-vnet/issues/117)) ([6b4ed12](https://github.com/aztfmods/terraform-azure-vnet/commit/6b4ed129ba41fc791551b2b39b6d44770223aa26))
+
 ## [1.17.0](https://github.com/aztfmods/terraform-azure-vnet/compare/v1.16.0...v1.17.0) (2023-08-14)
 
 
