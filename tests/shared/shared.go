@@ -19,17 +19,10 @@ type TestCase struct {
 }
 
 func GetTerraformOptions(terraformDir string) *terraform.Options {
-	workload := os.Getenv("WORKLOAD")
-	environment := os.Getenv("ENVIRONMENT")
-
 	return &terraform.Options{
 		TerraformDir: terraformDir,
 		NoColor:      true,
 		Parallelism:  2,
-		Vars: map[string]interface{}{
-			"workload":    workload,
-			"environment": environment,
-		},
 	}
 }
 
