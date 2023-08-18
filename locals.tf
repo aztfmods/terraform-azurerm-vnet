@@ -10,12 +10,11 @@ locals {
       enforce_priv_link_endpoint = try(subnet.enforce_priv_link_endpoint, false)
       delegations                = try(subnet.delegations, [])
       rules                      = try(subnet.rules, {})
-      subnet_name                = "snet-${var.workload}-${subnet_key}-${var.environment}"
-      nsg_name                   = "nsg-${var.workload}-${subnet_key}-${var.environment}-${random_string.random.result}"
+      subnet_name                = "${var.naming.subnet}-${subnet_key}"
+      nsg_name                   = "${var.naming.network_security_group}-${subnet_key}}"
       location                   = var.vnet.location
-      rt_name                    = "rt-${var.workload}-${subnet_key}-${var.environment}-${random_string.random.result}"
+      rt_name                    = "${var.naming.route_table}-${subnet_key}"
       routes                     = try(subnet.routes, {})
     }
   ])
 }
-
