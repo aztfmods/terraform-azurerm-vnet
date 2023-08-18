@@ -9,13 +9,11 @@ module "naming" {
 }
 
 module "rg" {
-  source = "github.com/aztfmods/terraform-azure-rg?ref=v0.1.0"
-
-  environment = var.environment
-  suffix      = "001"
+  source = "github.com/aztfmods/terraform-azure-rg"
 
   groups = {
     demo = {
+      name   = module.naming.resource_group.name
       region = "westeurope"
     }
   }
@@ -23,9 +21,11 @@ module "rg" {
 
 module "network" {
   source = "../../"
+
   naming = local.naming
 
   vnet = {
+    name          = module.naming.virtual_network.name
     location      = module.rg.groups.demo.location
     resourcegroup = module.rg.groups.demo.name
 
