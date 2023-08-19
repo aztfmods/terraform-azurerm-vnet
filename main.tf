@@ -2,8 +2,7 @@ data "azurerm_subscription" "current" {}
 
 # virtual network
 resource "azurerm_virtual_network" "vnet" {
-  #name = var.vnet.name
-  name                = var.naming.virtual_network
+  name                = var.vnet.name
   resource_group_name = var.vnet.resourcegroup
   location            = var.vnet.location
   address_space       = var.vnet.cidr
