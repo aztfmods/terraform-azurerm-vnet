@@ -166,8 +166,9 @@ module "network" {
 ## Usage: multiple
 
 ```hcl
+# main.tf
 module "network" {
-  source = "../../"
+  source = "github.com/aztfmods/terraform-azure-vnet?ref=v1.18.0"
 
   for_each = local.vnets
 
@@ -177,6 +178,7 @@ module "network" {
 ```
 
 ```hcl
+# locals.tf
 locals {
   vnets = {
     vnet1 = {
