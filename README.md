@@ -163,66 +163,6 @@ module "network" {
 }
 ```
 
-## Usage: multiple
-
-```hcl
-# main.tf
-module "network" {
-  source = "github.com/aztfmods/terraform-azure-vnet?ref=v1.18.0"
-
-  for_each = local.vnets
-
-  naming = local.naming
-  vnet   = each.value
-}
-```
-
-```hcl
-# locals.tf
-locals {
-  vnets = {
-    vnet1 = {
-      name          = join("-", [module.naming.virtual_network.name, "001"])
-      location      = module.rg.groups.demo.location
-      resourcegroup = module.rg.groups.demo.name
-      cidr          = ["10.18.0.0/16"]
-
-      subnets = {
-        sql = {
-          cidr = ["10.18.1.0/24"]
-          endpoints = [
-            "Microsoft.Sql"
-          ]
-        },
-        ws = {
-          cidr = ["10.18.2.0/24"]
-          delegations = {
-            databricks = {
-              name = "Microsoft.Databricks/workspaces"
-            }
-          }
-        }
-      }
-    },
-    vnet2 = {
-      name          = join("-", [module.naming.virtual_network.name, "002"])
-      location      = module.rg.groups.demo.location
-      resourcegroup = module.rg.groups.demo.name
-      cidr          = ["10.20.0.0/16"]
-
-      subnets = {
-        plink = {
-          cidr = ["10.20.1.0/24"]
-          endpoints = [
-            "Microsoft.Storage"
-          ]
-        }
-      }
-    }
-  }
-}
-````
-
 ## Resources
 
 | Name | Type |
