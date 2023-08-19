@@ -191,7 +191,6 @@ locals {
         sql = {
           cidr = ["10.18.1.0/24"]
           endpoints = [
-            "Microsoft.Storage",
             "Microsoft.Sql"
           ]
         },
@@ -215,8 +214,7 @@ locals {
         plink = {
           cidr = ["10.20.1.0/24"]
           endpoints = [
-            "Microsoft.Storage",
-            "Microsoft.Sql"
+            "Microsoft.Storage"
           ]
         }
       }
