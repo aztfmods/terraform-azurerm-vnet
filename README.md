@@ -174,7 +174,9 @@ module "network" {
   naming = local.naming
   vnet   = each.value
 }
+```
 
+```hcl
 locals {
   vnets = {
     vnet1 = {
