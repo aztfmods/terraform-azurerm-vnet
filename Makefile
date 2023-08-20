@@ -1,7 +1,5 @@
-.PHONY: complete test local
+.PHONY: test test_local test_extended
 
-export WORKLOAD
-export ENVIRONMENT
 export USECASE
 
 test_extended:
@@ -11,4 +9,4 @@ test:
 	cd tests && go test -v -timeout 60m -run TestApplyNoError/$(USECASE) ./vnet_test.go
 
 test_local:
-	cd tests && env WORKLOAD=demo ENVIRONMENT=dev go test -v -timeout 60m -run TestVirtualNetwork ./vnet_extended_test.go
+	cd tests && env go test -v -timeout 60m -run TestVirtualNetwork ./vnet_extended_test.go
