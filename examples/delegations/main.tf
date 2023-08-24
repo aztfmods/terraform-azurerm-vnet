@@ -20,7 +20,7 @@ module "rg" {
 }
 
 module "network" {
-  source = "github.com/aztfmods/terraform-azure-vnet?ref=v1.18.0"
+  source = "../../"
 
   naming = local.naming
 
