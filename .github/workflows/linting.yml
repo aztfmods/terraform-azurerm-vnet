@@ -7,6 +7,7 @@ on:
       - edited
       - synchronize
 
+
 jobs:
   checks:
-    uses: aztfmods/workflows-shared/.github/workflows/linting.yml@main
+    uses: aztfmods/workflows-shared/.github/workflows/linting.yml@feat/linting-branch-names
