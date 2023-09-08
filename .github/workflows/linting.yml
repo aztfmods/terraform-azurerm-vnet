@@ -9,3 +9,4 @@ on:
 jobs:
   validate:
     uses: aztfmods/workflows-shared/.github/workflows/linting.yml@main
+
