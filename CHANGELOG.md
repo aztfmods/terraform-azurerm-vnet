@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/aztfmods/terraform-azurerm-vnet/compare/v1.18.0...v2.0.0) (2023-12-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* this changes the vnet object structure.
+
+### Features
+
+* refactor nsg rules ([#135](https://github.com/aztfmods/terraform-azurerm-vnet/issues/135)) ([e748233](https://github.com/aztfmods/terraform-azurerm-vnet/commit/e74823321c3aa93be8fc7511ae53d0b9b6ceab74))
+
 ## [1.18.0](https://github.com/aztfmods/terraform-azure-vnet/compare/v1.17.0...v1.18.0) (2023-08-18)
 
 
