@@ -142,5 +142,3 @@ resource "azurerm_subnet_route_table_association" "rt_as" {
   subnet_id      = azurerm_subnet.subnets[each.key].id
   route_table_id = azurerm_route_table.rt[each.key].id
 }
-
-
